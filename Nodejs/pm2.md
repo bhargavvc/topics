@@ -66,7 +66,7 @@ Below are some of the most frequently used PM2 commands, along with explanations
      Runs the app in cluster mode using all available CPU cores.
 
 2. ### **Managing Processes**
-  ![topic](#https://raw.githubusercontent.com/bhargavvc/topics/img/nodejs/pm2_microservice.png)
+  ![topic](#https://raw.githubusercontent.com/bhargavvc/topics/main/img/nodejs/pm2_microservice.png)
 
 
    - **List All Processes**
@@ -102,7 +102,8 @@ Below are some of the most frequently used PM2 commands, along with explanations
      Deletes the `my-app` process from PM2's list.
 
 3. ### **Monitoring Applications**
-   ![topic](#https://raw.githubusercontent.com/bhargavvc/topics/img/nodejs/pm2_monitoring.png)
+
+  ![topic](#https://raw.githubusercontent.com/bhargavvc/topics/main/img/nodejs/pm2_monitoring.png)
 
    - **View Logs**
 
