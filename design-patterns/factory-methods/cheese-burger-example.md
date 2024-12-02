@@ -269,9 +269,10 @@ The Factory Method Pattern provides a powerful way to encapsulate object creatio
 
 - **Factory Method**: A method in the creator class responsible for creating product objects. It lets subclasses decide which class to instantiate.
 
-- **Dependency Inversion**: High-level modules should not depend on low-level modules; both should depend on abstractions.
+- **Dependency Inversion**: High-level modules should not depend on low-level modules; both should depend on abstractions.Abstractions should not depend on details. Details should depend on abstractions.
 
-- **Open/Closed Principle**: Classes should be open for extension but closed for modification.
+
+- **Open/Closed Principle**: The Open-Closed Principle (OCP) is a software engineering principle that states that software entities should be open for extension but closed for modification.
 
 ---
 
