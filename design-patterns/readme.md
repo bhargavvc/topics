@@ -1,9 +1,6 @@
-
----
-
 ## Commonly Used Top 10 Patterns in Orderwise
-
 Based on the image, the design patterns are ranked in terms of their common usage and frequency in practical software development:
+---
 
 ### **Ranked Order of the Patterns**
 1. **[Singleton Pattern](https://github.com/bhargavvc/topics/tree/main/design-patterns/singleton)**  
@@ -29,10 +26,7 @@ Based on the image, the design patterns are ranked in terms of their common usag
 
 8. **[Facade Pattern](https://github.com/bhargavvc/topics/tree/main/design-patterns/facade)**  
    - Commonly applied in complex systems to provide a simplified interface to a larger body of code, such as APIs or subsystems.
-
 ---
 
 ### **Explanation of Ranking**
 The **Singleton**, **Factory**, and **Observer** patterns take the top spots because of their frequent applicability in real-world projects. Patterns like **Builder** and **Strategy** are situational but widely used for specific needs, while **Adapter** and **Facade** are essential in integration-heavy systems but less commonly needed in simpler projects.
-
----
