@@ -1,0 +1,169 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+class Subject
+{
+public:
+    virtual void registerObserver(Observer *o) = 0;
+    virtual void removeObserver(Observer *o) = 0;
+    virtual void notifyObservers() = 0;
+};
+
+class Observer
+{
+public:
+    virtual void update(int value) = 0;
+};
+
+class ConcreteSubject : public Subject
+{
+private:
+    std::vector<Observer *> observers;
+    int value = 0;
+
+public:
+    void registerObserver(Observer *o) override
+    {
+        observers.push_back(o);
+    }
+
+    void removeObserver(Observer *o) override
+    {
+        observers.erase(std::remove(observers.begin(), observers.end(), o), observers.end());
+    }
+
+    void notifyObservers() override
+    {
+        for (Observer *observer : observers)
+        {
+            observer->update(value);
+        }
+    }
+
+    void setValue(int val)
+    {
+        value = val;
+        notifyObservers();
+    }
+};
+
+class ConcreteObserver : public Observer
+{
+private:
+    int value;
+    Subject *subject;
+
+public:
+    ConcreteObserver(Subject *sSub) : subject(sSub)
+    {
+        subject->registerObserver(this);
+    }
+
+    void update(int val) override
+    {
+        value = val;
+    }
+};
+
+/***********Scenario Implementation************/
+
+class Store
+{
+public:
+    virtual void addCustomer(class Customer *c) = 0;
+    virtual void removeCustomer(class Customer *c) = 0;
+    virtual void notifyCustomers() = 0;
+    virtual void updateQuantity(int quantity) = 0;
+};
+
+class Customer
+{
+public:
+    virtual void update(int stockQuantity) = 0;
+};
+
+class BookStore : public Store
+{
+private:
+    std::vector<Customer *> customers;
+    int stockQuantity = 0;
+
+public:
+    void addCustomer(Customer *c) override
+    {
+        customers.push_back(c);
+    }
+
+    void removeCustomer(Customer *c) override
+    {
+        customers.erase(std::remove(customers.begin(), customers.end(), c), customers.end());
+    }
+
+    void notifyCustomers() override
+    {
+        for (Customer *customer : customers)
+        {
+            customer->update(stockQuantity);
+        }
+    }
+
+    void updateQuantity(int quantity) override
+    {
+        stockQuantity = quantity;
+        notifyCustomers();
+    }
+};
+
+class BookCustomer : public Customer
+{
+private:
+    int observedStockQuantity;
+    Store *store;
+
+public:
+    BookCustomer(Store *store) : store(store)
+    {
+        store->addCustomer(this);
+    }
+
+    void update(int stockQuantity) override
+    {
+        observedStockQuantity = stockQuantity;
+        if (stockQuantity > 0)
+        {
+            std::cout << "Hello, A book you are interested in is back in stock!" << std::endl;
+        }
+    }
+};
+
+int main()
+{
+    Store *store = new BookStore();
+
+    Customer *customer1 = new BookCustomer(store);
+    Customer *customer2 = new BookCustomer(store);
+
+    // Initially, the book is out of stock
+    std::cout << "Setting stock to 0." << std::endl;
+    store->updateQuantity(0);
+
+    // The book comes back in stock
+    std::cout << "Setting stock to 5." << std::endl;
+    store->updateQuantity(5);
+
+    // Remove customer1 from the notification list
+    store->removeCustomer(customer1);
+
+    // Simulate the situation where the stock changes again
+    std::cout << "\nSetting stock to 2." << std::endl;
+    store->updateQuantity(2);
+
+    // Cleanup
+    delete customer1;
+    delete customer2;
+    delete store;
+
+    return 0;
+}
