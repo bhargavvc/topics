@@ -2,7 +2,7 @@
 
 ## Introduction to Encryption
 
-![encryption](https://raw.githubusercontent.com/bhargavvc/topics/tree/main/img/networking/encryption.png)
+![encryption](https://raw.githubusercontent.com/bhargavvc/topics/main/img/networking/encryption.png)
 - **Confidentiality**: Ensures that only the intended recipient can interpret the transmitted data.
 - **Plain Text (Clear Text)**: The original, unencrypted data (e.g., the word "hello").
 - **Cipher Text**: The encrypted version of the plain text, making it undecipherable to unauthorized parties.
@@ -12,7 +12,7 @@
   - Recipient decrypts cipher text back to plain text (decryption).
 
 ## Simple Encryption
-![simple-encrytption](https://raw.githubusercontent.com/bhargavvc/topics/tree/main/img/networking/simple-encrytption.png)
+![simple-encrytption](https://raw.githubusercontent.com/bhargavvc/topics/main/img/networking/simple-encrytption.png)
 - **Concept**: Transforming plain text into cipher text using an encryption algorithm.
 - **Limitations**:
   - **Scalability Issues**: 
@@ -23,7 +23,7 @@
     - Creating secure, unique transformations is complex and resource-intensive.
 
 ## Key-Based Encryption
-![Key-Based Encryption](https://raw.githubusercontent.com/bhargavvc/topics/tree/main/img/networking/key-based-encrytption.png)
+![Key-Based Encryption](https://raw.githubusercontent.com/bhargavvc/topics/main/img/networking/key-based-encrytption.png)
 - **Solution to Simple Encryption Problems**:
   - Combines a publicly vetted algorithm with a secret key.
   - **Algorithm**: Developed and validated by cryptographers and mathematicians for security.
@@ -33,7 +33,7 @@
   - **Security**: Public algorithms remain secure as only the key can decrypt the cipher text.
 
 ## Types of Key-Based Encryption
-![Types of Key-Based Encryption](https://raw.githubusercontent.com/bhargavvc/topics/tree/main/img/networking/symmetric-vs-asymmetric-diagram-example.png)
+![Types of Key-Based Encryption](https://raw.githubusercontent.com/bhargavvc/topics/main/img/networking/symmetric-vs-asymmetric-diagram-example.png)
 
 ### Symmetric Encryption
 - **Definition**: Uses the same key for both encryption and decryption.
@@ -59,7 +59,7 @@
   - Slower and more computationally intensive due to complex mathematics.
 
 ## Strengths and Weaknesses
-![Strengths and Weaknesses](https://raw.githubusercontent.com/bhargavvc/topics/tree/main/img/networking/symmetric-vs-asymmetric-differents.png)
+![Strengths and Weaknesses](https://raw.githubusercontent.com/bhargavvc/topics/main/img/networking/symmetric-vs-asymmetric-differents.png)
 ### Symmetric Encryption
 - **Strengths**:
   - **Speed**: Faster encryption and decryption processes.
