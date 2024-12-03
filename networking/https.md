@@ -2,11 +2,15 @@
 
 **Introduction**
 
-HTTPS stands for HyperText Transfer Protocol Secure. It's an extension of HTTP, the foundational protocol for data communication on the World Wide Web. HTTPS encrypts data exchanged between a user's browser and a web server, ensuring confidentiality, integrity, and authenticity. This secure communication is achieved through the use of SSL/TLS (Secure Sockets Layer/Transport Layer Security) protocols.
+- HTTPS stands for (HyperText Transfer Protocol Secure). 
+- It's an extension of HTTP, the foundational protocol for data communication on the World Wide Web.
+- HTTPS `encrypts data exchanged between a browser(client) and a web server`, ensuring confidentiality, integrity, and authenticity.
+- This secure communication is achieved through the use of SSL/TLS (Secure Sockets Layer/Transport Layer Security) protocols.
 
 ---
 
 **1. Server Certificate Verification**
+![alt text](image.png)
 
 When you visit an HTTPS website, the first step in establishing a secure connection is verifying the server's identity. This process ensures you're communicating with the legitimate server and not an impostor.
 
@@ -34,6 +38,7 @@ When you visit an HTTPS website, the first step in establishing a secure connect
 ---
 
 **2. Key Exchange (TLS Handshake)**
+![alt text](image-1.png)
 
 After verifying the server's identity, the browser and server need to agree on encryption parameters and establish shared secrets for secure communication.
 
