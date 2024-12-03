@@ -12,7 +12,7 @@
   - Recipient decrypts cipher text back to plain text (decryption).
 
 ## Simple Encryption
-![Simple Encryption](https://raw.githubusercontent.com/bhargavvc/topics/tree/main/img/networking/simple-encrytption.png)
+![simple-encrytption](https://raw.githubusercontent.com/bhargavvc/topics/tree/main/img/networking/simple-encrytption.png)
 - **Concept**: Transforming plain text into cipher text using an encryption algorithm.
 - **Limitations**:
   - **Scalability Issues**: 
