@@ -110,4 +110,4 @@ The Observer Pattern is a powerful tool in backend development for handling stat
 
 ---
 
-**Feel free to experiment with the provided code examples to deepen your understanding of the Observer Pattern. If you have any questions or need further clarification on any part of the implementation, don't hesitate to ask!**
+**Feel free to experiment with the provided code examples to deepen your understanding of the Observer Pattern.**

@@ -27,29 +27,7 @@ The **Facade Pattern** addresses these issues by:
 - **Facade**: The class that provides a simplified interface to the client.
 - **Subsystem Classes**: The complex components that perform the actual work.
 - **Client**: The code that uses the Facade to interact with the system.
-
----
-
-### **Example: Smart Home System**
-
-Let's consider a **Smart Home System** with various subsystems:
-
-- **Lighting System**: Controls the lights.
-- **Climate Control System**: Manages heating and cooling.
-- **Security System**: Handles alarms and locks.
-- **Entertainment System**: Manages media playback.
-
-**Challenge**:
-
-- The client (user or application) wants to activate predefined modes like "Movie Mode" or "Away Mode" without interacting with each subsystem individually.
-
-**Applying the Facade Pattern**:
-
-- Create a `SmartHomeFacade` class that provides simple methods like `activate_movie_mode()` and `activate_away_mode()`.
-- The facade interacts with the subsystems to perform the necessary actions.
-
----
-
+ 
 ### **Benefits of Using the Facade Pattern**
 
 - **Simplifies Client Interface**: Clients interact with a simple interface instead of multiple complex subsystems.
@@ -107,4 +85,4 @@ The **Facade Pattern** is a valuable tool in software design that promotes simpl
 
 ---
 
-**Feel free to experiment with the provided code examples to deepen your understanding of the Facade Pattern. By practicing and applying this pattern, you'll be able to create more maintainable and user-friendly software systems. If you have any questions or need further clarification on any part of the implementation, don't hesitate to ask!**
+**Feel free to experiment with the provided code examples to deepen your understanding of the Facade Pattern. By practicing and applying this pattern, you'll be able to create more maintainable and user-friendly software systems.**

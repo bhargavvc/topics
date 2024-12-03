@@ -310,4 +310,4 @@ In backend development with Python-Django, the Singleton pattern can be applied 
 
 ---
 
-Feel free to adapt these examples to fit your application's needs. If you have any questions or need further clarification on any part of the implementation, don't hesitate to ask!
+Feel free to adapt these examples to fit your application's needs.

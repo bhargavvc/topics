@@ -1,5 +1,22 @@
 
 ### **Implementing the Facade Pattern in Python**
+### **Example: Smart Home System**
+
+Let's consider a **Smart Home System** with various subsystems:
+
+- **Lighting System**: Controls the lights.
+- **Climate Control System**: Manages heating and cooling.
+- **Security System**: Handles alarms and locks.
+- **Entertainment System**: Manages media playback.
+
+**Challenge**:
+
+- The client (user or application) wants to activate predefined modes like "Movie Mode" or "Away Mode" without interacting with each subsystem individually.
+
+**Applying the Facade Pattern**:
+
+- Create a `SmartHomeFacade` class that provides simple methods like `activate_movie_mode()` and `activate_away_mode()`.
+- The facade interacts with the subsystems to perform the necessary actions.
 
 #### **Step 1: Define Subsystem Classes**
 
