@@ -8,6 +8,8 @@ Before diving into the example, it's essential to understand the **TCP/IP** mode
 
 ### **TCP/IP Model Layers:**
 
+![img](https://raw.githubusercontent.com/bhargavvc/topics/main/img/networking/tcp-ip-model-img.png)
+
 ```
 +-----------------------------+
 |       Application Layer     | <-- HTTPS (HTTP over TLS/SSL)
