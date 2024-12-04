@@ -4,6 +4,22 @@ Certainly! Understanding the interplay between **TCP/IP** and **HTTP/HTTPS** is 
 
 ## **1. Overview: Layers and Protocols**
 
+Communication stack
++-----------------------------+
+|      Application Layer      |
+|   HTTP / HTTPS / TLS/SSL    |
++-----------------------------+
+|      Transport Layer        |
+|             TCP             |
++-----------------------------+
+|      Internet Layer         |
+|             IP              |
++-----------------------------+
+|      Link Layer             |
+|   Ethernet / Wi-Fi / etc.   |
++-----------------------------+
+
+
 To comprehend TCP/IP and HTTP/HTTPS, it's essential to understand the **OSI (Open Systems Interconnection) model**, which divides network communication into seven layers. While the TCP/IP model simplifies this into four layers, understanding both models provides clarity.
 
 ### **a. OSI Model (Seven Layers):**
@@ -48,7 +64,7 @@ To comprehend TCP/IP and HTTP/HTTPS, it's essential to understand the **OSI (Ope
 
 ## **3. HTTP vs. HTTPS Explained**
 
-**HTTP (HyperText Transfer Protocol)** and **HTTPS (HTTP Secure)** are application-layer protocols used for transmitting hypermedia documents, such as HTML. The primary difference is security.
+**HTTP (HyperText Transfer Protocol)** and **HTTPS (HTTP Secure)** are application-layer protocols used for transmitting hypermedia documents(img,video, html). The primary difference is security.
 
 ### **a. HTTP:**
 - **Function**: Facilitates the transfer of web pages and resources between clients (browsers) and servers.
