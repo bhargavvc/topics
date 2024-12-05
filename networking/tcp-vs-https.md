@@ -23,8 +23,9 @@ Communication stack
 To comprehend TCP/IP and HTTP/HTTPS, it's essential to understand the **OSI (Open Systems Interconnection) model**, which divides network communication into seven layers. While the TCP/IP model simplifies this into four layers, understanding both models provides clarity.
 
 ### **a. OSI Model (Seven Layers):**
-![img](https://raw.githubusercontent.com/bhargavvc/topics/main/img/networking/ossi-model.png)
-![img](https://raw.githubusercontent.com/bhargavvc/topics/main/img/networking/ossi-model-2.png)
+![img](https://raw.githubusercontent.com/bhargavvc/topics/main/img/networking/osi-model.png)
+#### **a.1 OSI-Model Layers Example**
+![img-2](https://raw.githubusercontent.com/bhargavvc/topics/main/img/networking/osi-model-2.png)
 1. **Application Layer**: Interfaces directly with the user applications.
 2. **Presentation Layer**: Translates data formats (e.g., encryption).
 3. **Session Layer**: Manages sessions between applications.
