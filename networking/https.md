@@ -9,12 +9,14 @@
 
 ---
 
+
 **1. Server Certificate Verification**
+![alt text](image-1.png)
 ![alt text](image.png)
 
 When you visit an HTTPS website, the first step in establishing a secure connection is verifying the server's identity. This process ensures you're communicating with the legitimate server and not an impostor.
 
-- **Connection Initiation**: Your browser sends a request to the server to establish a secure connection.
+- **Connection Initiation**: Your browser sends a request to the server to establish a secure https connection.
 
 - **Server Sends Certificate**: The server responds by sending its SSL/TLS certificate, which contains:
 
@@ -112,8 +114,10 @@ With a shared session key established, the browser and server can now communicat
 1. **Initiation**: Browser requests a secure connection.
 2. **Server Authentication**: Browser verifies the server's certificate.
 3. **Key Exchange**: Browser and server agree on encryption methods and establish shared secrets.
-4. **Secure Communication**: Data is encrypted and transmitted securely.
-5. **Termination**: Connection is securely closed.
+4. **Encryption Changes**: Finally Asymmetric encryption(pub key only server knows) stops and symmetric encryption(session key which both machine knows) starts. 
+5. **Secure Communication**: Data is encrypted and transmitted securely.
+6. **Termination**: Connection is securely closed.
+
 
 ---
 
