@@ -1,7 +1,7 @@
 **Firewall's working**
 
 ---
-![img](https://raw.githubusercontent.com/bhargavvc/topics/main/img/networking/firewall.png)
+![img](https://raw.githubusercontent.com/bhargavvc/topics/main/img/networking/firewall.jpg)
 
 ### **What is a Firewall?**
 A **firewall** is a network security device or software that **filters** traffic between a private network and the internet, blocking malicious traffic and allowing legitimate traffic. It analyzes network traffic to detect and prevent attacks such as unauthorized access or malicious data from entering a network.
