@@ -11,8 +11,7 @@
 
 
 **1. Server Certificate Verification**
-![alt text](image-1.png)
-![alt text](image.png)
+![img](https://raw.githubusercontent.com/bhargavvc/topics/main/img/networking/https-encryption.png)
 
 When you visit an HTTPS website, the first step in establishing a secure connection is verifying the server's identity. This process ensures you're communicating with the legitimate server and not an impostor.
 
