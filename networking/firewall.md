@@ -10,7 +10,7 @@ A **firewall** is a network security device or software that **filters** traffic
 - **Outgoing traffic**: Data leaving the private network (e.g., a request to access a website).
 
 ---
-
+![img](https://raw.githubusercontent.com/bhargavvc/topics/main/img/networking/firewall-types.jpg)
 ### **Step 1: Packet Filtering Firewall**
 - **Function**: This is one of the simplest types of firewalls, where the firewall inspects each packet (unit of data transmitted over a network) based on predefined rules.
   
