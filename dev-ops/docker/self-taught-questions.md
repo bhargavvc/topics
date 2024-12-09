@@ -224,3 +224,16 @@ Think of the container as a house. The port mapping (`-p`) creates a door betwee
 ---
 
 This structure ensures your questions are preserved, and the explanations dive deeply into each topic. Let me know if you need further refinements!
+
+
+
+| Feature                  | Docker           | Jenkins / CI/CD Tools      |
+|--------------------------|------------------|----------------------------|
+| Build container images   | ✅              | ✅ (via Docker CLI commands)|
+| Push images to registry  | ✅              | ✅                          |
+| Trigger builds on GitHub changes | ❌  | ✅                          |
+| Run tests                | ❌              | ✅                          |
+| Manage multi-step pipelines | ❌         | ✅                          |
+| Scale containers         | ❌ (alone)      | ✅ (via Kubernetes, Swarm)  |
+
+---
