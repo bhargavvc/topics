@@ -1,6 +1,7 @@
 Below is an in-depth explanation of each section and its subtopics as outlined in the provided roadmap. This roadmap represents a journey from a junior developer’s skillset towards that of a senior developer. Each section builds on the previous skills to form a cohesive understanding of modern software development practices and technologies.
 
 ---
+![img](https://raw.githubusercontent.com/bhargavvc/topics/main/img/road-maps/junior-to-senior-developer.jpg)
 
 ### 1. Collaboration Tools
 **Overview:** Collaboration tools help teams communicate, plan, track work, and share knowledge effectively. Mastering these tools is essential for developers to work efficiently with teammates, stakeholders, and across distributed environments.
