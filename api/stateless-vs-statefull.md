@@ -1,4 +1,3 @@
-Explaination of both stateful and stateless API approaches.Node.js and Python examples for clarity.
 
 ---
 
@@ -27,13 +26,13 @@ Explaination of both stateful and stateless API approaches.Node.js and Python ex
 
 ## Introduction
 
-APIs (Application Programming Interfaces) serve as communication bridges between different software components. One major distinction you’ll often hear about is whether an API is “stateful” or “stateless.” Let’s break down these concepts, discuss their trade-offs, and illustrate with a real-world scenario and example code (in Python).
+APIs (Application Programming Interfaces) serve as communication bridges between different software components.Whether API is “stateful” or “stateless.” Let’s break down these concepts, discuss their trade-offs, and illustrate with a real-world scenario and example code (in Python).
 
 ---
 
 ## Understanding Statelessness
 
-**Stateless APIs** do not keep track of application state between requests. Each request contains all the necessary information needed to understand and execute it, independent of any prior requests. The server does not store session information, user-specific data, or any details that would depend on previous interactions with a particular client. Instead, the client must maintain any state and send it to the server on each request (e.g., via tokens, cookies with encoded state, or query parameters).
+**Stateless APIs** do not keep track of application state between requests. Each request contains all the necessary information needed to get resource from server. The `server does not store session information`, user-specific data, or any details that would depend on `previous interactions with a particular client`. Instead, the client must send necessary info to the server on each request (e.g., via tokens, cookies with encoded state, or query parameters).
 
 ### Key Characteristics of Stateless APIs
 
@@ -50,7 +49,7 @@ A public RESTful API for weather data: Each GET request (e.g., `GET /weather?cit
 
 ## Understanding Stateful APIs
 
-**Stateful APIs** maintain some form of session state between requests. This often means the server stores data about the client’s session on the server side. Every subsequent request from that client may rely on previously established state (e.g., a user’s shopping cart stored on the server).
+**Stateful APIs** maintain some form of session state between requests. This often means the `server stores` data about the `client’s session` on the `server side`. Every subsequent request from that client may rely on previously established state (e.g., a user’s shopping cart stored on the server).
 
 ### Key Characteristics of Stateful APIs
 
