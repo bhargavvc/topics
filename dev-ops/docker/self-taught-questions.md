@@ -236,4 +236,4 @@ This structure ensures your questions are preserved, and the explanations dive d
 | Manage multi-step pipelines | ❌         | ✅                          |
 | Scale containers         | ❌ (alone)      | ✅ (via Kubernetes, Swarm)  |
 
----
+--- 
