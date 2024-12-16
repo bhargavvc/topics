@@ -819,3 +819,393 @@ This document provides 100 detailed question-and-answer scenarios that a Django/
 ---
 
 **End of Document**
+
+Certainly! Expanding your comprehensive README with additional scenario-based questions can further enhance its value for Django/DRF backend developers and interviewees. Below are **Scenarios 101-110** covering a variety of real-world challenges and common interview topics. Each scenario follows the existing structure with a practical question and an extensive answer or implementation advice.
+
+---
+
+## Table of Contents
+
+1. [API Design and Versioning](#api-design-and-versioning)  
+   ...
+2. [Performance and Scalability](#performance-and-scalability)  
+   ...
+3. [Authentication, Authorization, and Security](#authentication-authorization-and-security)  
+   ...
+4. [Error Handling and Validation](#error-handling-and-validation)  
+   ...
+5. [Testing and Quality Assurance](#testing-and-quality-assurance)  
+   ...
+6. [Documentation and Tooling](#documentation-and-tooling)  
+   ...
+7. [Microservices and Architecture](#microservices-and-architecture)  
+   ...
+8. [Data Modeling and Migrations](#data-modeling-and-migrations)  
+   ...
+9. [Monitoring, Logging, and Analytics](#monitoring-logging-and-analytics)  
+   ...
+10. [Advanced Topics](#advanced-topics)  
+    ...
+11. [Maintenance, Refactoring, and Best Practices](#maintenance-refactoring-and-best-practices)  
+    ...
+12. [Deployment and DevOps](#deployment-and-devops)  
+    1. [Scenario 101: Continuous Integration and Deployment](#scenario-101-continuous-integration-and-deployment)  
+    2. [Scenario 102: Zero-Downtime Deployments](#scenario-102-zero-downtime-deployments)  
+    3. [Scenario 103: Containerizing Django Applications](#scenario-103-containerizing-django-applications)  
+    4. [Scenario 104: Managing Environment Variables](#scenario-104-managing-environment-variables)  
+    5. [Scenario 105: Automated Backups and Recovery](#scenario-105-automated-backups-and-recovery)  
+13. [Asynchronous Processing](#asynchronous-processing)  
+    1. [Scenario 106: Implementing Celery for Background Tasks](#scenario-106-implementing-celery-for-background-tasks)  
+    2. [Scenario 107: Handling Task Failures and Retries](#scenario-107-handling-task-failures-and-retries)  
+    3. [Scenario 108: Rate Limiting Asynchronous Tasks](#scenario-108-rate-limiting-asynchronous-tasks)  
+    4. [Scenario 109: Monitoring Celery Workers](#scenario-109-monitoring-celery-workers)  
+    5. [Scenario 110: Scaling Asynchronous Workers](#scenario-110-scaling-asynchronous-workers)  
+
+---
+
+## Deployment and DevOps
+
+### Scenario 101: Continuous Integration and Deployment  
+**Question:** How do you set up a CI/CD pipeline for a Django/DRF project to ensure automated testing and deployment?  
+**Answer/Implementation:**  
+- **Choose a CI/CD Tool:** Use platforms like GitHub Actions, GitLab CI, Jenkins, or CircleCI.
+- **Pipeline Stages:**
+  1. **Checkout Code:** Pull the latest code from the repository.
+  2. **Install Dependencies:** Use `pip` or `pipenv` to install Python packages.
+  3. **Run Linting:** Utilize tools like `flake8` or `black` to enforce code style.
+  4. **Run Tests:** Execute unit and integration tests using `pytest` or Django’s test framework.
+  5. **Build Artifacts:** Create Docker images if using containers.
+  6. **Deploy:** Automatically deploy to staging or production environments using tools like AWS CodeDeploy, Kubernetes, or Heroku.
+- **Example with GitHub Actions:**
+  ```yaml
+  name: CI/CD Pipeline
+
+  on:
+    push:
+      branches: [ main ]
+
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+
+      steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Lint with flake8
+        run: |
+          pip install flake8
+          flake8 .
+      - name: Run Tests
+        run: |
+          python manage.py test
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: user/repo:latest
+      - name: Deploy to AWS
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          cluster: your-cluster
+          service: your-service
+          task-definition: your-task-def
+  ```
+- **Best Practices:**
+  - **Environment Variables:** Securely manage secrets using encrypted variables or secret managers.
+  - **Rollback Mechanisms:** Implement strategies to revert deployments in case of failures.
+  - **Notifications:** Integrate with Slack or email to receive pipeline status updates.
+
+### Scenario 102: Zero-Downtime Deployments  
+**Question:** How do you achieve zero-downtime deployments for your Django application?  
+**Answer/Implementation:**  
+- **Blue-Green Deployments:** Maintain two identical environments (blue and green). Route traffic to blue while deploying to green. Switch traffic upon successful deployment.
+- **Rolling Updates:** Gradually replace instances with new versions, ensuring at least some instances are always serving traffic.
+- **Load Balancers:** Use load balancers (e.g., AWS ELB) to manage traffic routing between environments.
+- **Database Migrations:** Use backward-compatible migrations. Avoid schema changes that break the old version until all traffic has shifted.
+- **Health Checks:** Ensure new instances pass health checks before routing traffic to them.
+- **Example with Kubernetes:**
+  ```yaml
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: shopease-app
+  spec:
+    replicas: 3
+    strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxUnavailable: 1
+        maxSurge: 1
+    selector:
+      matchLabels:
+        app: shopease
+    template:
+      metadata:
+        labels:
+          app: shopease
+      spec:
+        containers:
+        - name: shopease-container
+          image: user/repo:latest
+          ports:
+          - containerPort: 8000
+  ```
+- **Best Practices:**
+  - **Automated Health Checks:** Verify application health post-deployment.
+  - **Monitoring:** Continuously monitor performance metrics during deployment.
+  - **Gradual Traffic Shifting:** Use tools like Istio or AWS CodeDeploy to control traffic flow.
+
+### Scenario 103: Containerizing Django Applications  
+**Question:** How do you containerize a Django/DRF application using Docker for consistent deployments?  
+**Answer/Implementation:**  
+- **Dockerfile Example:**
+  ```dockerfile
+  # Use official Python runtime as a parent image
+  FROM python:3.8-slim
+
+  # Set environment variables
+  ENV PYTHONDONTWRITEBYTECODE 1
+  ENV PYTHONUNBUFFERED 1
+
+  # Set work directory
+  WORKDIR /code
+
+  # Install dependencies
+  COPY requirements.txt /code/
+  RUN pip install --upgrade pip
+  RUN pip install -r requirements.txt
+
+  # Copy project
+  COPY . /code/
+
+  # Collect static files
+  RUN python manage.py collectstatic --noinput
+
+  # Run the application
+  CMD gunicorn shopease.wsgi:application --bind 0.0.0.0:8000
+  ```
+- **Docker Compose Example:**
+  ```yaml
+  version: '3.8'
+
+  services:
+    web:
+      build: .
+      command: gunicorn shopease.wsgi:application --bind 0.0.0.0:8000
+      volumes:
+        - .:/code
+      ports:
+        - "8000:8000"
+      env_file:
+        - .env
+      depends_on:
+        - db
+    db:
+      image: postgres:13
+      volumes:
+        - postgres_data:/var/lib/postgresql/data/
+      environment:
+        - POSTGRES_DB=shopease
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+
+  volumes:
+    postgres_data:
+  ```
+- **Best Practices:**
+  - **Use Multi-Stage Builds:** Optimize image size by separating build and runtime stages.
+  - **Environment Variables:** Manage configurations via environment variables instead of hardcoding.
+  - **Security:** Run containers with least privileges and avoid running as root.
+
+### Scenario 104: Managing Environment Variables  
+**Question:** How do you securely manage environment variables in your Django project, especially sensitive information like secret keys and database credentials?  
+**Answer/Implementation:**  
+- **Use `.env` Files:** Store environment variables in a `.env` file and load them using `django-environ` or `python-dotenv`.
+- **Secret Management Services:** Utilize services like AWS Secrets Manager, HashiCorp Vault, or Azure Key Vault to store and retrieve secrets securely.
+- **Avoid Hardcoding:** Never commit sensitive information to version control. Add `.env` to `.gitignore`.
+- **Example with `django-environ`:**
+  ```python
+  # settings.py
+  import environ
+
+  env = environ.Env(
+      DEBUG=(bool, False)
+  )
+
+  # reading .env file
+  environ.Env.read_env()
+
+  SECRET_KEY = env('SECRET_KEY')
+  DEBUG = env('DEBUG')
+  DATABASES = {
+      'default': env.db(),
+  }
+  ```
+- **Best Practices:**
+  - **Rotate Secrets Regularly:** Change secret keys and credentials periodically.
+  - **Limit Access:** Grant minimal permissions required for services accessing the secrets.
+  - **Audit Access:** Monitor and log access to sensitive environment variables.
+
+### Scenario 105: Automated Backups and Recovery  
+**Question:** How do you implement automated backups and ensure recovery for your Django application's database?  
+**Answer/Implementation:**  
+- **Database Backups:**
+  - **Managed Databases:** Use built-in backup features from cloud providers (e.g., AWS RDS automated backups).
+  - **Custom Scripts:** For self-managed databases, write cron jobs that use `pg_dump` for PostgreSQL or `mysqldump` for MySQL.
+- **Backup Storage:** Store backups in secure, redundant storage solutions like AWS S3 with versioning enabled.
+- **Retention Policies:** Define how long to keep backups based on business requirements and compliance.
+- **Automated Recovery Testing:** Regularly test restoring backups to ensure data integrity and backup reliability.
+- **Example Backup Script for PostgreSQL:**
+  ```bash
+  #!/bin/bash
+
+  BACKUP_DIR="/backups/postgresql"
+  DATE=$(date +"%Y%m%d%H%M")
+  DB_NAME="shopease"
+  DB_USER="postgres"
+  DB_PASSWORD="yourpassword"
+
+  export PGPASSWORD=$DB_PASSWORD
+
+  mkdir -p $BACKUP_DIR
+
+  pg_dump -U $DB_USER -F c -b -v -f "$BACKUP_DIR/$DB_NAME-$DATE.dump" $DB_NAME
+
+  # Optional: Upload to S3
+  aws s3 cp "$BACKUP_DIR/$DB_NAME-$DATE.dump" s3://shopease-backups/
+  ```
+- **Best Practices:**
+  - **Encrypt Backups:** Ensure backups are encrypted both in transit and at rest.
+  - **Automate the Process:** Use scheduling tools like cron or cloud-based schedulers to automate backups.
+  - **Monitor Backups:** Implement monitoring to alert if backups fail.
+
+---
+
+## Asynchronous Processing
+
+### Scenario 106: Implementing Celery for Background Tasks  
+**Question:** How do you integrate Celery into your Django/DRF project for handling background tasks?  
+**Answer/Implementation:**  
+- **Install Celery:**
+  ```bash
+  pip install celery
+  pip install redis  # or another broker like RabbitMQ
+  ```
+- **Configure Celery in Django:**
+  ```python
+  # shopease/celery.py
+  from __future__ import absolute_import, unicode_literals
+  import os
+  from celery import Celery
+
+  os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'shopease.settings')
+
+  app = Celery('shopease')
+  app.config_from_object('django.conf:settings', namespace='CELERY')
+  app.autodiscover_tasks()
+  ```
+  ```python
+  # shopease/__init__.py
+  from .celery import app as celery_app
+
+  __all__ = ('celery_app',)
+  ```
+- **Define Tasks:**
+  ```python
+  # app/tasks.py
+  from celery import shared_task
+  from .models import Order
+
+  @shared_task
+  def process_order(order_id):
+      order = Order.objects.get(id=order_id)
+      # Perform processing, e.g., charging a card, updating inventory
+  ```
+- **Running Celery Worker:**
+  ```bash
+  celery -A shopease worker -l info
+  ```
+- **Best Practices:**
+  - **Separate Concerns:** Keep task logic separate from request/response cycles.
+  - **Monitoring:** Use tools like Flower or Celery Beat to monitor task queues.
+  - **Retries:** Implement retry logic for tasks that may fail temporarily.
+
+### Scenario 107: Handling Task Failures and Retries  
+**Question:** How do you manage task failures and implement retries in Celery?  
+**Answer/Implementation:**  
+- **Retry Configuration in Tasks:**
+  ```python
+  @shared_task(bind=True, max_retries=3, default_retry_delay=60)
+  def send_email(self, user_id, message):
+      try:
+          user = User.objects.get(id=user_id)
+          user.email_user(message)
+      except Exception as exc:
+          raise self.retry(exc=exc)
+  ```
+- **Backoff Strategies:** Use exponential backoff to delay retries progressively.
+- **Dead Letter Queues:** Route failed tasks after maximum retries to a dead letter queue for later inspection.
+- **Alerting:** Notify the team when tasks fail after all retry attempts.
+- **Best Practices:**
+  - **Idempotency:** Ensure tasks can be retried without causing unintended side effects.
+  - **Logging:** Log failures with sufficient context to facilitate debugging.
+  - **Circuit Breakers:** Prevent overwhelming external services by temporarily halting task retries if failures spike.
+
+### Scenario 108: Rate Limiting Asynchronous Tasks  
+**Question:** You have a Celery task that sends emails, but you need to limit it to 100 emails per minute to comply with SMTP provider limits. How do you implement this?  
+**Answer/Implementation:**  
+- **Celery Rate Limits:**
+  ```python
+  @shared_task(rate_limit='100/m')
+  def send_email(user_id, message):
+      user = User.objects.get(id=user_id)
+      user.email_user(message)
+  ```
+- **Using Celery Beat:** Schedule tasks at intervals that respect rate limits.
+- **Custom Rate Limiting:** Implement rate limiting within tasks using libraries like `ratelimit` or external systems like Redis.
+- **Best Practices:**
+  - **Monitoring:** Track task execution rates to ensure compliance.
+  - **Graceful Handling:** Queue excess tasks or notify when rate limits are reached.
+  - **Scalability:** Adjust rate limits based on provider policies and traffic patterns.
+
+### Scenario 109: Monitoring Celery Workers  
+**Question:** How do you monitor Celery workers to ensure they are running smoothly and handle tasks efficiently?  
+**Answer/Implementation:**  
+- **Flower Dashboard:** Use Flower to monitor task queues, worker status, and task progress.
+  ```bash
+  pip install flower
+  celery -A shopease flower
+  ```
+- **Prometheus Metrics:** Integrate Celery with Prometheus to scrape metrics and visualize them in Grafana.
+- **Logging:** Ensure Celery logs are captured and aggregated using tools like ELK Stack.
+- **Alerts:** Set up alerts for worker failures, high task latency, or queue backlogs.
+- **Best Practices:**
+  - **Heartbeat Monitoring:** Verify that workers are alive and responsive.
+  - **Resource Utilization:** Track CPU and memory usage of workers to prevent overload.
+  - **Task Performance:** Monitor task execution times to identify bottlenecks.
+
+### Scenario 110: Scaling Asynchronous Workers  
+**Question:** Your application’s background tasks are growing, leading to longer queue times. How do you scale your Celery workers effectively?  
+**Answer/Implementation:**  
+- **Horizontal Scaling:** Add more worker instances to handle increased task volume.
+  ```bash
+  celery -A shopease worker -l info --concurrency=4
+  ```
+- **Dynamic Scaling:** Use autoscaling tools like Kubernetes Horizontal Pod Autoscaler (HPA) to adjust worker replicas based on queue length or CPU usage.
+- **Task Prioritization:** Assign priorities to tasks to ensure critical tasks are processed first.
+- **Optimizing Concurrency:** Tune the `concurrency` parameter based on worker resources and task nature (I/O-bound vs CPU-bound).
+- **Best Practices:**
+  - **Monitoring Queue Lengths:** Adjust scaling policies based on real-time queue metrics.
+  - **Resource Allocation:** Ensure each worker has adequate resources (CPU, memory) to handle tasks efficiently.
+  - **Load Balancing:** Distribute tasks evenly across workers to prevent bottlenecks.
+
+---
+
+Feel free to review these additional scenarios. If you're ready for more, let me know, and I can continue adding further scenarios or expand on specific sections as needed!

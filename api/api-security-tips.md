@@ -65,7 +65,7 @@ A GitHub OAuth app requiring two-factor auth for sensitive operations like repo 
 **Purpose:** Ensure the right users have the right permissions.
 
 **How It Works:**
-- Implement RBAC or ABAC.
+- Implement RBAC and ABAC | (Role-based access control),(Attribute-based access control) .
 - Check permissions on every request.
 
 **Best Practices:**
