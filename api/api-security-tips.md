@@ -2,26 +2,41 @@
 ---
 ## **Table of Contents**
 
-1. [HTTPS Encryption](#1-https-encryption)  
-2. [Strong Authentication](#2-strong-authentication)  
-3. [Access Control](#3-access-control)  
-4. [Data Encryption](#4-data-encryption)  
-5. [Rate Limiting](#5-rate-limiting)  
-6. [Secure Data Validation](#6-secure-data-validation)  
-7. [Token Expiration](#7-token-expiration)  
-8. [Security Testing](#8-security-testing)  
-9. [Logging and Auditing](#9-logging-and-auditing)  
-10. [Sanitize Input](#10-sanitize-input)  
-11. [Security Headers](#11-security-headers)  
-12. [Regular Updates](#12-regular-updates)  
-13. [Throttle Login Attempts](#13-throttle-login-attempts)  
-14. [CORS Configuration](#14-cors-configuration)  
-15. [Safe API Documentation](#15-safe-api-documentation)  
-16. [Secure Session Management](#16-secure-session-management)  
-17. [Disable Default Errors](#17-disable-default-errors)  
-18. [Secure Error Messages](#18-secure-error-messages)  
-19. [API Versioning](#19-api-versioning)  
-20. [Use CSRF Tokens](#20-use-csrf-tokens)  
+
+1. **Encryption and Data Security**  
+   - [HTTPS Encryption](#1-https-encryption)  
+   - [Data Encryption](#4-data-encryption)  
+   - [Secure Data Validation](#6-secure-data-validation) 
+
+2. **Authentication and Session Management**  
+   - [Strong Authentication](#2-strong-authentication)  
+   - [Secure Session Management](#16-secure-session-management)  
+   - [Token Expiration](#7-token-expiration)
+
+3. **Access Control and Rate Limiting**  
+   - [Access Control](#3-access-control)
+   - [Rate Limiting](#5-rate-limiting) 
+   - [Throttle Login Attempts](#13-throttle-login-attempts)s  
+
+4. **Input and Error Handling**  
+   - [Sanitize Input](#10-sanitize-input)  
+   - [Secure Error Messages](#18-secure-error-messages)  
+   - [Disable Default Errors](#17-disable-default-errors)  
+
+5. **API and Web-Specific Security**  
+   - [Security Headers](#11-security-headers) 
+   - [CORS Configuration](#14-cors-configuration) 
+   - [API Versioning](#19-api-versioning)  
+   - [Safe API Documentation](#15-safe-api-documentation)   
+
+6. **Monitoring and Testing**  
+   - [Logging and Auditing](#9-logging-and-auditing)
+   - [Security Testing](#8-security-testing) 
+   - [Regular Updates](#12-regular-updates)
+
+7. **CSRF and Other Safeguards**  
+   - [Use CSRF Tokens](#20-use-csrf-tokens) 
+
 
 [Advanced Mastery Tips](#advanced-mastery-tips)  
 [Summary Table](#summary-table)  
