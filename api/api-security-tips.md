@@ -421,3 +421,10 @@ Web applications like **Gmail** or **GitHub** use CSRF tokens to ensure that a u
 ---
 
  
+
+
+ #i want like this type of flow like 
+
+ client side to server and server to client side 
+
+ cna you structure these data to like this flow 
