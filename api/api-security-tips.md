@@ -1,37 +1,34 @@
 
----
-
 # **20 API Security Tips**
-
 ---
 
 ## **Table of Contents**
 
 ### 1. **Client-to-Server Security**
-   - [**1. HTTPS Encryption**](#1-https-encryption) -> Use HTTPS/TLS configuration  
-   - [**2. Strong Authentication**](#2-strong-authentication) -> Implement OAuth 2.0 and MFA  
-   - [**5. Rate Limiting**](#5-rate-limiting) -> Prevent API abuse and DoS attacks  
-   - [**7. Token Expiration**](#7-token-expiration) -> Limit token lifespan to reduce misuse  
-   - [**13. Throttle Login Attempts**](#13-throttle-login-attempts) -> Prevent brute-force attacks  
-   - [**16. Secure Session Management**](#16-secure-session-management) -> Protect user sessions from hijacking  
-   - [**20. Use CSRF Tokens**](#20-use-csrf-tokens) -> Prevent Cross-Site Request Forgery attacks  
-   - [**6. Secure Data Validation**](#6-secure-data-validation) -> Whitelist expected inputs & Reject malformed requests  
-   - [**10. Sanitize Input**](#10-sanitize-input) -> Clean user inputs to prevent injection attacks  
+   - [**HTTPS Encryption**](#1-https-encryption) -> Use HTTPS/TLS configuration  
+   - [**Strong Authentication**](#2-strong-authentication) -> Implement OAuth 2.0 and MFA  
+   - [**Sanitize Input**](#10-sanitize-input) -> Clean user inputs to prevent injection attacks  
+   - [**Secure Session Management**](#16-secure-session-management) -> Protect user sessions from hijacking  
+   - [**Secure Data Validation**](#6-secure-data-validation) -> Whitelist expected inputs & Reject malformed requests  
+   - [**Token Expiration**](#7-token-expiration) -> Limit token lifespan to reduce misuse  
+   - [**Throttle Login Attempts**](#13-throttle-login-attempts) -> Prevent brute-force attacks  
+   - [**Rate Limiting**](#5-rate-limiting) -> Prevent API abuse and DoS attacks  
+   - [**Use CSRF Tokens**](#20-use-csrf-tokens) -> Prevent Cross-Site Request Forgery attacks  
 
 ### 2. **Server-to-Client Security**
-   - [**3. Access Control**](#3-access-control) -> Ensure proper permissions with RBAC and ABAC  
-   - [**4. Data Encryption**](#4-data-encryption) -> Store sensitive data in hashed format  
-   - [**11. Security Headers**](#11-security-headers) -> Enhance response security using headers  
-   - [**14. CORS Configuration**](#14-cors-configuration) -> Control cross-origin requests  
-   - [**15. Safe API Documentation**](#15-safe-api-documentation) -> Prevent credential leaks in docs  
-   - [**17. Disable Default Errors**](#17-disable-default-errors) -> Hide system internals from error messages  
-   - [**18. Secure Error Messages**](#18-secure-error-messages) -> Provide generic error information  
-   - [**19. API Versioning**](#19-api-versioning) -> Manage API updates securely  
+   - [**Access Control**](#3-access-control) -> Ensure proper permissions with RBAC and ABAC  
+   - [**API Versioning**](#19-api-versioning) -> Manage API updates securely  
+   - [**Security Headers**](#11-security-headers) -> Enhance response security using headers  
+   - [**Safe API Documentation**](#15-safe-api-documentation) -> Prevent credential leaks in docs  
+   - [**Secure Error Messages**](#18-secure-error-messages) -> Provide generic error information  
+   - [**CORS Configuration**](#14-cors-configuration) -> Control cross-origin requests  
+   - [**Disable Default Errors**](#17-disable-default-errors) -> Hide system internals from error messages  
+   - [**Data Encryption**](#4-data-encryption) -> Store sensitive data in hashed format  
 
 ### 3. **Monitoring and Testing**
-   - [**8. Security Testing**](#8-security-testing) -> Identify vulnerabilities proactively  
-   - [**9. Logging and Auditing**](#9-logging-and-auditing) -> Track API activities for security  
-   - [**12. Regular Updates**](#12-regular-updates) -> Keep APIs free from known vulnerabilities  
+   - [**Security Testing**](#8-security-testing) -> Identify vulnerabilities proactively  
+   - [**Logging and Auditing**](#9-logging-and-auditing) -> Track API activities for security  
+   - [**Regular Updates**](#12-regular-updates) -> Keep APIs free from known vulnerabilities  
 
 ### 4. **Advanced Mastery Tips**
    - [**Advanced Mastery Tips**](#advanced-mastery-tips) -> Deepen your API security knowledge  
