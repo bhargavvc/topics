@@ -1127,7 +1127,7 @@ smtp_mail_from = your_email@example.com
 Integrating **Apache Airflow** with your **Django** application provides a powerful and flexible framework for automating data updates and managing schema migrations. By following the steps outlined above, you can establish a reliable workflow that handles conditional migrations, data downloads, and database updates seamlessly.
 
 **Key Takeaways:**
-
+ 
 - **Airflow DAGs**: Define clear workflows with task dependencies to manage complex processes.
 - **Dynamic Configuration**: Use Airflow’s Connections and Variables to manage credentials and configurations securely.
 - **Robust Monitoring**: Utilize Airflow’s UI and additional tools like Flower, Prometheus, and Grafana for comprehensive monitoring.
