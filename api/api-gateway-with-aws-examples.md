@@ -32,11 +32,32 @@ This in-depth guide breaks down the essential concepts of **API Gateways**, prov
 
 ---
 
+
+## (Ignore this summary)[Skip to main Context](#1-introduction-to-api-gateways). 
+# Comparative Analysis of API Gateway Solutions
+Selecting the appropriate API Gateway solution is pivotal for achieving optimal performance, scalability, and maintainability. Below is a comparative analysis of popular API Gateway solutions, evaluated based on various criteria relevant to ShopEase's e-commerce platform.
+
+| **Feature**              | **AWS API Gateway**                                    | **Kong**                                         | **Apigee**                                        | **NGINX Plus**                                    |
+|--------------------------|--------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|---------------------------------------------------|
+| **Deployment Model**     | Fully Managed                                         | Open-Source & Enterprise                          | Fully Managed                                     | Self-Managed                                      |
+| **Scalability**          | Highly Scalable, Serverless                            | Scalable with Enterprise options                  | Highly Scalable                                   | Scalable with proper infrastructure               |
+| **Security Features**   | AWS IAM, Cognito Integration, WAF, TLS                  | OAuth2, JWT, Rate Limiting, WAF (Enterprise)      | OAuth2, JWT, API Keys, WAF                        | OAuth2, JWT, Rate Limiting, WAF                    |
+| **Performance**          | High performance with global endpoints                  | High performance, especially with Enterprise      | High performance                                   | High performance, optimized for speed              |
+| **Monitoring & Logging**| Integrated with AWS CloudWatch, X-Ray                    | Built-in analytics, integrates with Prometheus    | Comprehensive analytics, integrates with Stackdriver| Integrates with various monitoring tools            |
+| **Cost**                 | Pay-as-you-go based on usage                            | Free (Open-Source), Paid (Enterprise)             | Subscription-based, varies by usage                | Licensing costs, free open-source version available |
+| **Ease of Use**          | Intuitive AWS Console, extensive documentation          | Developer-friendly, extensive plugins             | User-friendly interface, powerful features         | Requires expertise for configuration                |
+| **Customization**        | Limited to provided features                            | Highly customizable with plugins                   | Customizable policies and transformations          | Highly customizable through configuration files     |
+| **Integration**          | Seamless integration with AWS services                   | Integrates with various platforms and services     | Integrates with Google Cloud and other services    | Integrates with numerous platforms and services     |
+| **Support**              | AWS Support Plans                                       | Community and Enterprise support                  | Google Cloud Support, extensive resources          | Community and Enterprise support                    |
+
+
 ## 1. Introduction to API Gateways
 
 ### **Concept:**
 
-An **API Gateway** serves as a centralized entry point for all client interactions with backend services. It abstracts the complexity of the underlying microservices architecture, providing a unified interface for clients to access various APIs. By managing tasks such as request routing, authentication, rate limiting, and more, API Gateways enhance security, scalability, and maintainability of distributed systems.
+- An **API Gateway** serves as a centralized entry(Middleware or ProxyServer) point for all client interactions with backend services.
+- It abstracts the complexity of the underlying microservices architecture, providing a unified interface for clients to access various APIs.
+- By managing tasks such as request routing, authentication, rate limiting, and more, API Gateways enhance security, scalability, and maintainability of distributed systems.
 
 ### **Key Functions:**
 
@@ -237,39 +258,69 @@ Understanding the fundamental components of an API Gateway is essential for effe
 #### **ShopEase Example Enhancement:**
 
 - **Implementing JWT Validation:**
-  ```javascript
-  // Example Lambda function for JWT validation (Node.js)
-  const jwt = require('jsonwebtoken');
-  const jwksClient = require('jwks-rsa');
+  ```python
+  import json
+  import jwt  # PyJWT library
+  from jwt.algorithms import RSAAlgorithm
+  import requests
 
-  const client = jwksClient({
-    jwksUri: 'https://auth.shopease.com/.well-known/jwks.json'
-  });
+  JWKS_URI = "https://auth.shopease.com/.well-known/jwks.json"
 
-  function getKey(header, callback) {
-    client.getSigningKey(header.kid, function(err, key) {
-      const signingKey = key.publicKey || key.rsaPublicKey;
-      callback(null, signingKey);
-    });
-  }
+  def get_signing_key(kid):
+      """Fetch the signing key from the JWKS endpoint."""
+      response = requests.get(JWKS_URI)
+      if response.status_code != 200:
+          raise Exception("Failed to fetch JWKS")
 
-  exports.handler = function(event, context, callback) {
-    const token = event.headers.Authorization.split(' ')[1];
+      jwks = response.json()
+      for key in jwks["keys"]:
+          if key["kid"] == kid:
+              public_key = RSAAlgorithm.from_jwk(json.dumps(key))
+              return public_key
+      raise Exception("Signing key not found")
 
-    jwt.verify(token, getKey, {}, function(err, decoded) {
-      if (err) {
-        return callback(null, {
-          statusCode: 401,
-          body: JSON.stringify({ error: 'Unauthorized' })
-        });
-      }
-      // Proceed with authorized request
-      callback(null, {
-        statusCode: 200,
-        body: JSON.stringify({ message: 'Authorized', user: decoded })
-      });
-    });
-  };
+  def lambda_handler(event, context):
+      """AWS Lambda function to validate JWT tokens."""
+      try:
+          # Extract the Authorization token
+          auth_header = event["headers"].get("Authorization", "")
+          if not auth_header or not auth_header.startswith("Bearer "):
+              return {
+                  "statusCode": 401,
+                  "body": json.dumps({"error": "Unauthorized"})
+              }
+
+          token = auth_header.split(" ")[1]
+
+          # Decode the token header to get the 'kid'
+          unverified_header = jwt.get_unverified_header(token)
+          kid = unverified_header["kid"]
+
+          # Get the signing key
+          signing_key = get_signing_key(kid)
+
+          # Verify the token
+          decoded_token = jwt.decode(
+              token,
+              signing_key,
+              algorithms=["RS256"],  # Update to match your algorithm
+              audience="your-audience",  # Replace with your audience
+              issuer="https://auth.shopease.com/"  # Replace with your issuer
+          )
+
+          # Authorized response
+          return {
+              "statusCode": 200,
+              "body": json.dumps({"message": "Authorized", "user": decoded_token})
+          }
+
+      except Exception as e:
+          # Unauthorized response
+          return {
+              "statusCode": 401,
+              "body": json.dumps({"error": "Unauthorized", "message": str(e)})
+          }
+
   ```
 
 [**Go to Top**](#comprehensive-api-gateway-guide)
@@ -650,32 +701,101 @@ Understanding the fundamental components of an API Gateway is essential for effe
   ```
 
 - **Aggregating Responses from Multiple Services Using AWS Lambda:**
-  ```javascript
-  // Example Lambda function for response aggregation
-  const axios = require('axios');
 
-  exports.handler = async (event) => {
-      const productId = event.pathParameters.id;
+  ```python
+  import json
+  import requests
 
-      // Fetch product details
-      const productResponse = await axios.get(`https://api.shopease.com/v2/products/${productId}`);
+  def lambda_handler(event, context):
+      try:
+          # Extract the product ID from the path parameters
+          product_id = event["pathParameters"]["id"]
 
-      // Fetch inventory status
-      const inventoryResponse = await axios.get(`https://api.shopease.com/v2/inventory/${productId}`);
+          # Fetch product details
+          product_response = requests.get(f"https://api.shopease.com/v2/products/{product_id}")
+          if product_response.status_code != 200:
+              return {
+                  "statusCode": product_response.status_code,
+                  "body": json.dumps({"error": "Failed to fetch product details"})
+              }
 
-      // Aggregate responses
-      const aggregatedResponse = {
-          id: productResponse.data.id,
-          title: productResponse.data.title,
-          price: productResponse.data.price,
-          stock: inventoryResponse.data.stock
-      };
+          product_data = product_response.json()
 
-      return {
-          statusCode: 200,
-          body: JSON.stringify(aggregatedResponse)
-      };
-  };
+          # Fetch inventory status
+          inventory_response = requests.get(f"https://api.shopease.com/v2/inventory/{product_id}")
+          if inventory_response.status_code != 200:
+              return {
+                  "statusCode": inventory_response.status_code,
+                  "body": json.dumps({"error": "Failed to fetch inventory status"})
+              }
+
+          inventory_data = inventory_response.json()
+
+          # Aggregate responses
+          aggregated_response = {
+              "id": product_data.get("id"),
+              "title": product_data.get("title"),
+              "price": product_data.get("price"),
+              "stock": inventory_data.get("stock"),
+          }
+
+          return {
+              "statusCode": 200,
+              "body": json.dumps(aggregated_response)
+          }
+
+      except Exception as e:
+          return {
+              "statusCode": 500,
+              "body": json.dumps({"error": "Internal Server Error", "message": str(e)})
+          }
+  ```
+
+  ### Explanation
+
+  1. **Libraries**:
+    - `requests` is used to make HTTP GET requests to the product and inventory APIs.
+    - `json` is used to handle the JSON response and format the Lambda output.
+
+  2. **Fetching Data**:
+    - Product details and inventory status are fetched using `requests.get()`.
+    - Status codes are checked to ensure successful responses.
+
+  3. **Error Handling**:
+    - Returns specific error responses for failed API calls with the relevant status code and message.
+    - Catches any exceptions and returns a generic "Internal Server Error" response.
+
+  4. **Response Aggregation**:
+    - Combines data from the product and inventory responses into a single aggregated response containing `id`, `title`, `price`, and `stock`.
+
+  5. **AWS Lambda Format**:
+    - The function accesses `pathParameters` from the `event` object to extract the product ID and returns a structured response.
+
+  ---
+
+  ### Prerequisites
+  - Install the required library:
+    ```bash
+    pip install requests
+    ```
+
+  ### Sample Input
+  ```json
+  {
+    "pathParameters": {
+      "id": "12345"
+    }
+  }
+  ```
+
+  ### Sample Output
+  ```json
+  {
+    "id": "12345",
+    "title": "Product Title",
+    "price": 99.99,
+    "stock": 25
+  }
   ```
 
 [**Go to Top**](#comprehensive-api-gateway-guide)
@@ -1019,37 +1139,67 @@ Integrating API Gateways with **microservices** involves managing the communicat
   ```
   
 - **Request Aggregation Example:**
-  ```javascript
-  // Example Lambda function for aggregating product and inventory data
-  const axios = require('axios');
+  ```python
+  #Example Lambda function for aggregating product and inventory data
+  import json
+  import asyncio
+  import aiohttp
 
-  exports.handler = async (event) => {
-      const productId = event.pathParameters.id;
+  async def fetch_data(session, url):
+      """Helper function to fetch data from a given URL."""
+      async with session.get(url) as response:
+          if response.status != 200:
+              raise Exception(f"Failed to fetch data from {url}, status code: {response.status}")
+          return await response.json()
 
-      try {
-          const [productResponse, inventoryResponse] = await Promise.all([
-              axios.get(`https://api.shopease.com/v2/products/${productId}`),
-              axios.get(`https://api.shopease.com/v2/inventory/${productId}`)
-          ]);
+  async def lambda_handler(event, context):
+      """AWS Lambda function to aggregate product and inventory data."""
+      try:
+          product_id = event["pathParameters"]["id"]
+          product_url = f"https://api.shopease.com/v2/products/{product_id}"
+          inventory_url = f"https://api.shopease.com/v2/inventory/{product_id}"
 
-          const aggregatedResponse = {
-              id: productResponse.data.id,
-              title: productResponse.data.title,
-              price: productResponse.data.price,
-              stock: inventoryResponse.data.stock
-          };
+          async with aiohttp.ClientSession() as session:
+              # Fetch product and inventory data concurrently
+              product_data, inventory_data = await asyncio.gather(
+                  fetch_data(session, product_url),
+                  fetch_data(session, inventory_url)
+              )
+
+          # Aggregate responses
+          aggregated_response = {
+              "id": product_data.get("id"),
+              "title": product_data.get("title"),
+              "price": product_data.get("price"),
+              "stock": inventory_data.get("stock"),
+          }
 
           return {
-              statusCode: 200,
-              body: JSON.stringify(aggregatedResponse)
-          };
-      } catch (error) {
+              "statusCode": 200,
+              "body": json.dumps(aggregated_response)
+          }
+
+      except Exception as e:
           return {
-              statusCode: 500,
-              body: JSON.stringify({ error: "Failed to retrieve product information." })
-          };
+              "statusCode": 500,
+              "body": json.dumps({"error": "Failed to retrieve product information.", "message": str(e)})
+          }
+    
+    #sample input
+    {
+      "pathParameters": {
+        "id": "12345"
       }
-  };
+    }
+    #sample output
+    {
+      "id": "12345",
+      "title": "Product Title",
+      "price": 99.99,
+      "stock": 25
+    }
+
+
   ```
 
 #### **Pros:**
@@ -1537,9 +1687,111 @@ Enhancing the security of API Gateways involves implementing additional layers o
       --integration-http-method POST \
       --uri arn:aws:apigateway:<region>:lambda:path/2015-03-31/functions/arn:aws:lambda:<region>:123456789012:function:ProcessOrder/invocations
   ```
+- # Implementing Event Streaming with AWS Kinesis
+
+  This guide provides a step-by-step process for implementing event streaming using AWS Kinesis. It includes creating a Kinesis stream and publishing events from an AWS Lambda function.
+
+  ## **1. Creating a Kinesis Stream**
+  To create a Kinesis stream named `OrderEvents`, run the following AWS CLI command:
+  ```bash
+  aws kinesis create-stream --stream-name OrderEvents --shard-count 1
+  ```
+  - **Stream Name**: `OrderEvents`
+  - **Shard Count**: Defines the stream’s capacity (1 shard for this example).
+
+  ---
+
+  ## **2. Publishing Events to Kinesis from Lambda**
+  Here’s how you can publish events to the `OrderEvents` Kinesis stream using Python in an AWS Lambda function:
+
+  ### **Python Code**
+  ```python
+  import json
+  import boto3
+
+  def lambda_handler(event, context):
+      # Initialize Kinesis client
+      kinesis = boto3.client("kinesis")
+
+      # Example order data (replace with actual event data)
+      order_data = {
+          "orderId": "12345",
+          "product": "Smartphone",
+          "quantity": 1
+      }
+
+      # Prepare Kinesis parameters
+      params = {
+          "Data": json.dumps(order_data),  # Convert order data to JSON string
+          "PartitionKey": str(order_data["orderId"]),  # Use orderId as partition key
+          "StreamName": "OrderEvents"  # Target Kinesis stream
+      }
+
+      # Publish the event to Kinesis
+      try:
+          response = kinesis.put_record(**params)
+          print("Event published successfully:", response)
+      except Exception as e:
+          print("Error publishing event:", e)
+  ```
+
+  ---
+
+  ## **3. Explanation of Code**
+
+  ### **a. Dependencies**
+  - `boto3`: AWS SDK for Python, used to interact with AWS services.
+  - `json`: Used to convert the order data dictionary to a JSON string.
+
+  ### **b. Parameters**
+  - `Data`: The order data serialized as a JSON string.
+  - `PartitionKey`: Determines which shard the event is written to; typically a unique identifier such as `orderId`.
+  - `StreamName`: Name of the target Kinesis stream (`OrderEvents`).
+
+  ### **c. Error Handling**
+  - Wrap the `put_record` call in a `try-except` block to log errors if the event publishing fails.
+
+  ---
+
+  ## **4. Sample Input to Lambda Function**
+  ```json
+  {
+    "orderId": "12345",
+    "product": "Smartphone",
+    "quantity": 1
+  }
+  ```
+
+  ---
+
+  ## **5. Sample Output from Lambda Function**
+  If the event is successfully published, the response will look like this:
+  ```json
+  {
+    "ShardId": "shardId-000000000000",
+    "SequenceNumber": "49601710281551001562137938526490764522221563137915600898"
+  }
+  ```
+  - **ShardId**: Identifier of the shard where the event was written.
+  - **SequenceNumber**: Unique identifier of the record within the shard.
+
+  ---
+
+  ## **6. Verifying Kinesis Stream**
+  To confirm that the event has been written to the Kinesis stream:
+  1. Use the AWS Management Console to view the stream.
+  2. Use the AWS CLI to retrieve records:
+    ```bash
+    aws kinesis get-shard-iterator \
+        --stream-name OrderEvents \
+        --shard-id shardId-000000000000 \
+        --shard-iterator-type TRIM_HORIZON
+    ```
+
+
 
 - **Implementing Event Streaming with AWS Kinesis:**
-  ```bash
+  ```markdown
   # Creating a Kinesis Stream for order events
   aws kinesis create-stream --stream-name OrderEvents --shard-count 1
   
@@ -1580,20 +1832,97 @@ Enhancing the security of API Gateways involves implementing additional layers o
 
 #### **ShopEase Example Enhancement:**
 
-- **Setting Up an AWS Lambda Function for Event Processing:**
-  ```javascript
-  // Example Lambda function to handle order events from Kinesis
-  exports.handler = async (event) => {
-      for (const record of event.Records) {
-          const orderData = Buffer.from(record.kinesis.data, 'base64').toString('utf8');
-          console.log("Processing Order:", orderData);
-          
-          // Process the order (e.g., update inventory, notify shipping)
-          await processOrder(JSON.parse(orderData));
-      }
+- **Setting Up an AWS Lambda Function for Event Processing(order events from Kinesis):**
+
+```python
+  import json
+  import base64
+
+  async def process_order(order_data):
+      """
+      Function to process an individual order.
+      Add your logic here (e.g., update inventory, notify shipping).
+      """
+      print(f"Processing Order: {order_data}")
+      # Add order processing logic
+      # Example: update inventory, send notification, etc.
+
+  async def lambda_handler(event, context):
+      """
+      AWS Lambda function to handle order events from Kinesis.
+      """
+      try:
+          for record in event["Records"]:
+              # Decode Kinesis data
+              order_data = base64.b64decode(record["kinesis"]["data"]).decode("utf-8")
+              print(f"Decoded Order Data: {order_data}")
+
+              # Process the order
+              await process_order(json.loads(order_data))
+
+          return {
+              "statusCode": 200,
+              "body": "Orders processed successfully."
+          }
       
-      return { statusCode: 200, body: "Orders processed successfully." };
-  };
+      except Exception as e:
+          print(f"Error processing orders: {e}")
+          return {
+              "statusCode": 500,
+              "body": f"Error processing orders: {str(e)}"
+          }
+  ```
+  ### Explanation
+
+  1. **Kinesis Event Handling**:
+    - The `event["Records"]` array contains the data from the Kinesis stream.
+    - Each record's data is **Base64-encoded** and must be decoded using `base64.b64decode()`.
+
+  2. **Order Processing**:
+    - The `process_order` function is called for each order to handle the business logic (e.g., updating inventory, notifying shipping).
+
+  3. **Asynchronous Execution**:
+    - The function uses `async`/`await` to handle asynchronous operations like database updates or API calls during order processing.
+
+  4. **Error Handling**:
+    - Catches any exceptions during processing and logs the errors, returning an appropriate HTTP response code.
+
+  5. **AWS Lambda Format**:
+    - The function returns an HTTP response (`statusCode` and `body`) to indicate whether processing was successful.
+
+  ### Prerequisites
+  1. Install additional dependencies if required for external API calls or database updates.
+  2. Ensure that your Lambda function has appropriate permissions (e.g., access to DynamoDB or SNS).
+
+  ### Sample Input (Kinesis Event)
+  ```json
+  {
+    "Records": [
+      {
+        "kinesis": {
+          "data": "eyJvcmRlcklkIjogIjEyMzQ1IiwgInByb2R1Y3QiOiAiU21hcnRwaG9uZSIsICJxdWFudGl0eSI6IDF9"
+        }
+      }
+    ]
+  }
+  ```
+
+  **Decoded Data**:
+  ```json
+  {
+    "orderId": "12345",
+    "product": "Smartphone",
+    "quantity": 1
+  }
+  ```
+
+  ### Sample Output
+  ```json
+  {
+    "statusCode": 200,
+    "body": "Orders processed successfully."
+  }
+  ```
   ```
   
 - **Configuring Lambda to Trigger from Kinesis Stream:**
