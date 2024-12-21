@@ -1,4 +1,3 @@
-```markdown
 # Comprehensive API Gateway Guide
 
 This in-depth guide breaks down the essential concepts of **API Gateways**, providing a structured approach from foundational understanding to advanced mastery. Utilizing the **ShopEase Example**, an e-commerce platform evolving its API, we will explore various components and workflows involved in API Gateways. Each section includes detailed explanations, practical examples, code snippets, best practices, and comparative analyses to facilitate a thorough comprehension of API Gateway functionalities.
