@@ -1,16 +1,10 @@
 
-
-This reorganized structure categorizes the **REST Architecture and API Design Principles** into logical sections based on real-world application and usage patterns. Each category encompasses related design and optimization strategies, providing a clear and comprehensive roadmap for enhancing API performance, security, and developer experience. By following these categorized principles, developers can systematically address various aspects of API design and implementation, leading to more efficient, reliable, and scalable APIs.
-
----
-
 # **REST Architecture and API Design Principles**
-
----
 
 ## Table of Contents
 
-**6 Pillars of REST API Design**
+**Pillars of REST API Design**
+
 0. [Client-Server](#1-client-server)
 1. [Stateless](#3-stateless)
 2. [Cacheable](#5-cacheable)
@@ -18,6 +12,7 @@ This reorganized structure categorizes the **REST Architecture and API Design Pr
 4. [Uniform Interface](#11-uniform-interface)
 
 **API Design Principles**
+
 5. [User-Centric Design](#2-user-centric-design)
 6. [Consistency](#4-consistency)
 7. [Security](#6-security)
@@ -43,7 +38,7 @@ This reorganized structure categorizes the **REST Architecture and API Design Pr
 ## 1. Client-Server
 
 ### Concept:
-The **Client-Server** architecture is the foundational pillar of REST API design, emphasizing a clear separation of concerns between the user interface (client) and data storage and processing (server).
+The **Client-Server** architecture is the foundational pillar of REST API design, Explain the Data Process and Rules between **client** and **server**.
 
 ### Key Principles:
 - **Separation of Concerns**: The client focuses solely on the user interface and user experience, while the server handles backend logic, data storage, and processing.
