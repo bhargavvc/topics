@@ -25,36 +25,27 @@
 
 - **Features**
   - Schema-based structure
-  - Complex joins and relationships
   - Transaction management
-  - Referential integrity
   - Rich query capabilities
+  - Complex joins and relationships
 
 - **Examples**
   - **MySQL**
     - Most popular open-source database
-    - Powers WordPress, Facebook, Twitter
-    - Strong community support
   - **PostgreSQL**
     - Advanced features like JSON support
     - Extensible architecture
     - Geospatial capabilities
   - **Oracle**
-    - Enterprise-grade reliability
     - Advanced security features
     - Market leader in enterprise space
 
 - **Use Cases**
-  - Banking systems (e.g., JPMorgan's transaction processing)
-  - E-commerce platforms (e.g., Amazon's order management)
-  - Healthcare systems (Electronic Health Records)
-  - Enterprise applications (SAP ERP)
+  - Banking systems, E-commerce platforms, Healthcare systems, Enterprise applications (SAP ERP)
 
 - **Strengths**
   - Data consistency and integrity
   - Complex query capabilities
-  - Mature ecosystem
-  - Strong security features
 
 - **Weaknesses**
   - Limited scalability
@@ -81,7 +72,7 @@
     - Rich query language
     - Native replication
   - **Cassandra**
-    - Linear scalability
+    - Linear(Horizontal) scalability
     - Multi-datacenter replication
     - Used by Apple, Netflix
   - **Couchbase**
@@ -150,10 +141,9 @@
   - Handle complex hierarchical data
 
 - **Weaknesses**
-  - Less suitable for complex transactions
   - Data redundancy
+  - Less suitable for complex transactions
   - Limited join capabilities
-  - Eventual consistency trade-offs
 
 ## 4. Key-Value Databases
 - **Definition**
