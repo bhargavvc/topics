@@ -1,5 +1,4 @@
-Let’s dive into **Data Science in a Nutshell**, covering each topic and subheading in detail with definitions, basic examples, real-world applications, and practical usage. This will help you understand how to use these components cohesively in data science projects.
-
+**Data Science in a Nutshell**
 ---
 
 ### **1. Programming Languages**
