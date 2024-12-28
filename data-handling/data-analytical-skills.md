@@ -1,6 +1,8 @@
 ![alt text](data-analytical-skills.png)
 
-Here’s a **comprehensive breakdown of each data analytical skill**, explained with examples, tools, and step-by-step mastery paths. This detailed guide will help you understand the concepts, implement them practically, and master their applications.
+**comprehensive breakdown of each data analytical skill**, 
+explained with examples, tools, and step-by-step mastery paths. 
+This detailed guide will help you understand the concepts, implement them practically, and master their applications.
 
 ---
 
