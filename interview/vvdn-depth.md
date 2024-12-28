@@ -1,5 +1,4 @@
-Below is an **in-depth explanation** for each of the **100** interview questions we covered earlier. Because of the length, the content is split into **ten sections** (each with **10** questions) for easier readability. Each answer includes **examples**, **code snippets**, and **use cases** to help you grasp the concepts thoroughly.
-
+ 
 ---
 
 ## Section 1: Questions 1–10 (Python Fundamentals)
