@@ -2,6 +2,9 @@ Let's break down **Data Analytics with Python** into its core components with de
 
 ---
 
+![img](https://raw.githubusercontent.com/bhargavvc/topics/main/data-handling/data-analytcis-python.png)
+
+
 ### **1. Data Visualization**
 
 #### **Tools**: 
