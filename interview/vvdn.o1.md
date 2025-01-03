@@ -1,4 +1,4 @@
-Below is a **grouped set** of **100 interview questions and answers** specifically tailored for a **Python Developer role** focusing on **FastAPI, SQL, microservices, Docker, Kubernetes**, and related topics. Each answer is a **short paragraph** with **brief code snippets or examples** (where applicable). This includes **fundamentals**, **advanced topics**, **situational/project scenarios**, and **some behavioral/soft-skill** elements.
+Below is a **grouped set** of **100 interview questions and answers** specifically tailored for a **Python Developer role** focusing on **FastAPI, SQL, microservices, Docker, Kubernetes**, and related topics
 
 ---
 
@@ -31,7 +31,7 @@ This ensures you can gracefully catch errors without crashing the program.
 ### 1.3 Q: Explain Python’s GIL (Global Interpreter Lock) and its impact on threading.
 **A:** The GIL allows only one thread to execute Python bytecodes at a time, limiting CPU-bound threads to a single core. For I/O-bound tasks, threading can still be beneficial, but for CPU-bound tasks, multiprocessing or async frameworks often yield better performance.
 
----
+--- 
 
 ### 1.4 Q: What are Python decorators and how do you use them?
 **A:** Decorators are functions that modify the behavior of other functions or classes. They take a function as input, wrap it with extra functionality, and return a new function. Example:

@@ -1,6 +1,9 @@
 
 ---
 
+
+
+
 ### **1. Explain the difference between Python 2 and Python 3.**  
 #### **Answer**:  
 Python 2 and Python 3 are two major versions of Python with the following differences:  
