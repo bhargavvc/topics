@@ -48,6 +48,3 @@ Behavioral Questions
 Describe a challenging project you worked on and how you overcame obstacles.
 How do you prioritize tasks when working on multiple projects?
 These questions will help you prepare for a backend developer interview, especially in a logistics company where data handling and API interactions are crucial.
-
-
-#12 

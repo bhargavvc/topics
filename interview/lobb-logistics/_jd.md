@@ -1,4 +1,4 @@
-
+  ● 5+years of experience designing and building apps in relevant technologies. 
  ● Sound knowledge of Python 
  ● Must have a good sense of user experience 
  ● You’re kind, curious, and tenacious 
