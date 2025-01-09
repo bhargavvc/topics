@@ -20,3 +20,5 @@ Amazon SQS (Simple Queue Service), "to decouple and buffer incoming requests" me
 2. **Buffering**: SQS acts as a temporary storage for messages. When incoming requests are received, they are placed in the queue. This helps to handle situations where the rate of incoming requests is higher than the rate at which they can be processed. The queue buffers these requests and ensures that they are processed in a controlled manner, preventing system overload.
 
 In summary, Amazon SQS helps to manage the flow of data between different components of your application, ensuring that they can work independently and efficiently handle varying loads.
+
+serverless: means building and running applications and services without managing the infrastructure
