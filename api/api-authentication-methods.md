@@ -2,6 +2,20 @@
 
 This comprehensive guide delves deeply into **12 API authentication methods**, organizing them based on real-world usage scenarios. Each method is thoroughly explored with detailed explanations, practical examples, Python code implementations, and best practices. This guide is designed for developers and security professionals seeking to implement robust and secure API authentication mechanisms tailored to their specific needs.
 
+| **Method**               | **Best Use Case**                                | **Complexity** | **Security** |
+|---------------------------|--------------------------------------------------|----------------|--------------|
+| Bearer Token (OAuth 2.0)  | Delegated access to resources                   | Medium         | High         |
+| JSON Web Tokens (JWT)     | Stateless auth for modern apps                  | Medium         | High         |
+| API Key Authentication    | Simple third-party APIs                         | Low            | Low          |
+| OpenID Connect (OIDC)     | Single Sign-On (SSO)                            | High           | High         |
+| HMAC                      | Secure data integrity                           | Medium         | High         |
+| API Tokens                | Persistent authentication for long-lived apps   | Medium         | Medium       |
+| Basic Authentication      | Testing/low-security environments               | Low            | Low          |
+| Client Certificate Auth   | Machine-to-machine communication                | High           | Very High    |
+| Digest Authentication     | Slightly secure API password auth               | Medium         | Medium       |
+| OAuth 1.0                 | Legacy systems                                  | High           | Medium       | 
+
+ 
 ---
 
 ## Table of Contents
@@ -1040,3 +1054,243 @@ While both methods secure API requests, Token-Based Authentication offers greate
 **Conclusion**: This organized and in-depth framework of **API Authentication Methods** categorizes each method based on real-world usage scenarios, enhancing clarity and aiding developers in selecting the appropriate authentication mechanism for their specific needs. By adhering to best practices, addressing common pitfalls, and leveraging the provided resources, developers and security professionals can implement robust and secure API authentication strategies that align with modern application demands and security standards.
 
 [**Go to Top**](#api-authentication-methods)
+
+
+Here's the updated explanation reordered based on the **most commonly used methods in real-world applications**:
+
+---
+
+### 1. **Bearer Token Authentication (OAuth 2.0)**
+**Definition**: Clients include a bearer token (obtained after authentication) in the HTTP header.
+
+**Scenario**: Social logins (Google, Facebook), granting access to third-party apps.
+
+**Python Example**:
+```python
+import requests
+
+url = "https://api.example.com/user"
+bearer_token = "access_token_from_oauth"
+
+headers = {"Authorization": f"Bearer {bearer_token}"}
+response = requests.get(url, headers=headers)
+
+print(response.json())
+```
+
+**Notes**:
+- Tokens expire and need renewal (secure!).
+- Widely used for delegated access in modern applications.
+
+---
+
+### 2. **JSON Web Tokens (JWT)**
+**Definition**: Encoded tokens containing claims (e.g., user data) are passed between client and server.
+
+**Scenario**: Stateless authentication in modern applications like microservices or SPAs.
+
+**Python Example**:
+```python
+import jwt
+
+# Encode
+payload = {"user_id": 123}
+secret = "your_secret_key"
+token = jwt.encode(payload, secret, algorithm="HS256")
+
+# Decode
+decoded = jwt.decode(token, secret, algorithms=["HS256"])
+print(decoded)
+```
+
+**Notes**:
+- Common in microservices and SPAs.
+- Token tampering prevention with secret/private keys.
+
+---
+
+### 3. **API Key Authentication**
+**Definition**: A client includes a unique API key in the request header to authenticate with the server. It’s a simple method but lacks fine-grained access control.
+
+**Scenario**: Common in third-party services like Google Maps or weather APIs.
+
+**Python Example**:
+```python
+import requests
+
+API_KEY = "your_api_key_here"
+url = "https://api.example.com/data"
+
+headers = {"Authorization": f"Bearer {API_KEY}"}
+response = requests.get(url, headers=headers)
+
+print(response.json())
+```
+
+**Notes**:
+- Easy to implement.
+- Keys can be exposed if not handled securely.
+
+---
+
+### 4. **OpenID Connect (OIDC)**
+**Definition**: Built on OAuth 2.0, it adds identity verification (user profile data).
+
+**Scenario**: Single Sign-On (SSO) systems like Google Workspace or Microsoft Azure AD.
+
+**Python Example**:
+```python
+from authlib.integrations.requests_client import OAuth2Session
+
+client_id = 'your_client_id'
+client_secret = 'your_client_secret'
+url = "https://openid.example.com/token"
+
+oauth = OAuth2Session(client_id, client_secret)
+response = oauth.fetch_token(url, code="auth_code")
+
+print(response)
+```
+
+**Notes**:
+- Combines authentication and authorization.
+- Simplifies integration with third-party identity providers.
+
+---
+
+### 5. **HMAC (Hash-based Message Authentication Code)**
+**Definition**: A hash is generated using a secret key and included in the request to verify integrity.
+
+**Scenario**: Payment APIs (e.g., Stripe, PayPal) to verify the integrity of requests.
+
+**Python Example**:
+```python
+import hashlib
+import hmac
+import base64
+
+secret = b"your_secret_key"
+message = b"data_to_hash"
+
+signature = base64.b64encode(hmac.new(secret, message, digestmod=hashlib.sha256).digest())
+print(signature)
+```
+
+**Notes**:
+- Ensures data hasn’t been tampered with.
+- Often combined with other authentication methods.
+
+---
+
+### 6. **API Tokens**
+**Definition**: Tokens similar to API keys but longer-lived and more secure.
+
+**Scenario**: Authenticating persistent sessions for APIs like GitHub.
+
+**Python Example**:
+```python
+import requests
+
+url = "https://api.example.com/v1/resource"
+token = "api_token_123456"
+
+headers = {"Authorization": f"Token {token}"}
+response = requests.get(url, headers=headers)
+
+print(response.json())
+```
+
+**Notes**:
+- Allows fine-grained access control.
+- Easier to revoke than passwords.
+
+---
+
+### 7. **Basic Authentication**
+**Definition**: Username and password are Base64-encoded and sent in the request header.
+
+**Scenario**: Internal APIs or test environments.
+
+**Python Example**:
+```python
+import requests
+from requests.auth import HTTPBasicAuth
+
+url = "https://api.example.com/secure-data"
+response = requests.get(url, auth=HTTPBasicAuth('username', 'password'))
+
+print(response.json())
+```
+
+**Notes**:
+- Must use HTTPS; otherwise, credentials are exposed.
+- Outdated for modern APIs.
+
+---
+
+### 8. **Client Certificate Authentication**
+**Definition**: Authentication using digital certificates stored on the client.
+
+**Scenario**: Securing machine-to-machine (M2M) communication in financial systems.
+
+**Python Example**:
+```python
+import requests
+
+url = "https://secure-api.example.com"
+cert = ("client_cert.pem", "client_key.pem")  # Path to cert files
+
+response = requests.get(url, cert=cert)
+print(response.status_code)
+```
+
+**Notes**:
+- Strong security but setup is complex.
+- Requires maintaining a certificate authority.
+
+---
+
+### 9. **Digest Authentication**
+**Definition**: An improvement over basic auth, it hashes credentials before sending them.
+
+**Scenario**: APIs requiring stronger password protection.
+
+**Python Example**:
+```python
+import requests
+from requests.auth import HTTPDigestAuth
+
+url = "https://api.example.com/protected"
+response = requests.get(url, auth=HTTPDigestAuth('username', 'password'))
+
+print(response.json())
+```
+
+**Notes**:
+- Adds an extra layer of security.
+- Vulnerable to certain attacks without HTTPS.
+
+---
+
+### 10. **OAuth 1.0**
+**Definition**: A protocol for secure token-based authentication using signatures.
+
+**Scenario**: Legacy systems that haven’t migrated to OAuth 2.0.
+
+**Python Example**:
+```python
+from requests_oauthlib import OAuth1
+
+url = "https://api.example.com/resource"
+auth = OAuth1('consumer_key', 'consumer_secret', 'access_token', 'access_token_secret')
+
+response = requests.get(url, auth=auth)
+print(response.json())
+```
+
+**Notes**:
+- More complex than OAuth 2.0.
+- Rarely used in new systems.
+
+---
+ 
