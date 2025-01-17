@@ -103,3 +103,106 @@ In this snippet:
 
 Understanding that “everything is an object” in Python helps you appreciate how data is managed, how functions behave (since they too are objects), and why certain operations are performed in a specific way. This object-oriented nature of Python provides a consistent and flexible way to write and structure code.
 
+
+
+---
+
+### 1. Magic Methods
+
+**Definition:**  
+Magic methods in Python are special methods that start and end with double underscores (e.g., `__init__`, `__str__`, `__add__`). They allow you to define or customize behavior for built-in operations on your objects.
+
+**Examples and Uses:**
+- `__init__(self, ...)`: Initializes a new object instance.
+- `__str__(self)`: Defines a human-readable string representation of an object (used by `print()`).
+- `__repr__(self)`: Defines an unambiguous representation of an object for debugging.
+- `__add__(self, other)`: Overloads the `+` operator for custom addition behavior.
+
+**Why Use Magic Methods?**
+- **Operator Overloading:** Customize how objects of your class interact with operators like `+`, `-`, `==`, etc.
+- **Built-in Functionality:** Define behaviors for Python built-ins (like `len()`, iteration, context management with `with` statements via `__enter__`/`__exit__`, etc.).
+
+---
+
+### 2. Pickling
+
+**Definition:**  
+Pickling is Python’s process of serializing (converting) an object into a byte stream, and unpickling is the reverse process. This is done using the `pickle` module.
+
+**Uses:**
+- **Persistence:** Save Python objects to a file or database to restore them later.
+- **Data Transfer:** Send Python objects over a network between processes or machines.
+
+**Basic Example:**
+```python
+import pickle
+
+data = {'key': 'value', 'list': [1, 2, 3]}
+
+# Serializing (pickling) the data
+with open('data.pkl', 'wb') as file:
+    pickle.dump(data, file)
+
+# Deserializing (unpickling) the data
+with open('data.pkl', 'rb') as file:
+    loaded_data = pickle.load(file)
+```
+
+**Caution:**
+- Only unpickle data from trusted sources, as unpickling can execute arbitrary code.
+
+---
+
+### 3. Lambda Functions
+
+**Definition:**  
+A lambda function in Python is a small, anonymous function defined with the `lambda` keyword. It can take any number of arguments but has only one expression.
+
+**Syntax:**
+```python
+lambda arguments: expression
+```
+
+**When to Use Lambda Functions:**
+- **Short-lived Functions:** When you need a quick, throwaway function for a short period.
+- **Functional Tools:** Often used with functions like `map()`, `filter()`, `sorted()`, or as a key function in sorting.
+- **Inline Definitions:** When defining a function inline keeps the code more concise and readable, and you don’t need to reuse the function elsewhere.
+
+**Example:**
+```python
+# Sort a list of tuples by the second element using a lambda
+pairs = [(1, 'one'), (3, 'three'), (2, 'two')]
+sorted_pairs = sorted(pairs, key=lambda pair: pair[1])
+```
+
+---
+
+### 4. When to Use Lambda vs. Regular Function
+
+- **Lambda:** Use when the function is simple, short, and not reused elsewhere. It's great for readability when the function logic is minimal.
+- **Regular `def` Function:** Prefer this when the function is more complex, needs documentation, or will be reused multiple times. It allows for more clarity and flexibility (like adding docstrings, annotations, and multiple statements).
+
+---
+
+### 5. Object for Class or Class for Object?
+
+**Clarification:**
+- **Class for Object:** In Python, you define classes as blueprints for creating objects. When you create (instantiate) an object, you are creating an instance of a class.
+  
+**Key Points:**
+- You first define a class, then create objects from that class.
+- An **object** is an instance produced by a **class**.
+- You do not create a class from an object; rather, the class exists first and is used to generate objects.
+
+**Example:**
+```python
+class Car:
+    def __init__(self, make, model):
+        self.make = make
+        self.model = model
+
+# Creating an object (instance) of class Car
+my_car = Car('Toyota', 'Corolla')
+```
+
+---
