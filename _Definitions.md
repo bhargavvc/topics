@@ -21,4 +21,7 @@ Amazon SQS (Simple Queue Service), "to decouple and buffer incoming requests" me
 
 In summary, Amazon SQS helps to manage the flow of data between different components of your application, ensuring that they can work independently and efficiently handle varying loads.
 
-serverless: means building and running applications and services without managing the infrastructure
+**serverless** means building and running applications and services without managing the infrastructure
+
+**Compiletime**  is when the code is being translated into executable instructions, before it's run. 
+**Runtime** is when the program is actually executing
