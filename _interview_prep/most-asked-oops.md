@@ -74,19 +74,6 @@ Here’s a refined set of **most frequently asked OOPs interview questions** wit
 
 ---
 
-### **8. Explain the SOLID principles in OOP and their importance in backend development.**
-- **Single Responsibility Principle**:
-  - A class should have one and only one responsibility.
-- **Open/Closed Principle**:
-  - Classes should be open for extension but closed for modification.
-- **Liskov Substitution Principle**:
-  - Derived classes must be substitutable for their base classes.
-- **Interface Segregation Principle**:
-  - Classes should not be forced to implement methods they don't use.
-- **Dependency Inversion Principle**:
-  - High-level modules should not depend on low-level modules but on abstractions.
-- **Relevance**:
-  - Promotes maintainable, scalable, and testable codebases in backend systems.
 
 ---
 
@@ -1100,5 +1087,3 @@ Here’s a new set of **OOPs interview questions**, focusing on advanced concept
     ```
 
 ---
-
-These advanced OOP questions and patterns will help you deepen your knowledge and demonstrate your expertise during interviews. Let me know if you need detailed explanations or additional examples for any of these concepts!
