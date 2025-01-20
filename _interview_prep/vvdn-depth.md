@@ -1047,11 +1047,7 @@
 
 ---
 
-### **82. Difference between Monolithic and Microservices architecture?**
-- **In-depth Explanation**:
-  - **Monolithic**: A single, large codebase containing all functionality.  
-  - **Microservices**: Each service focuses on a specific domain area, communicating over the network.
-  - **Why it matters**: Microservices offer better scalability and team autonomy but add complexity in orchestration.
+
 
 ---
 

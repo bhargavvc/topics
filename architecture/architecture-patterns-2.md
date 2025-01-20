@@ -2,35 +2,6 @@ Let’s dive deep into the **Essential Software Architecture Patterns**, analyzi
 
 ---
 
-### **1. Microservices Architecture**
-
-#### **Overview**:
-- Breaks an application into **small, independent services** that handle specific business functions and communicate over APIs.
-
-#### **Best For**:
-- Large, scalable systems that require flexibility and independent module deployments.
-
-#### **Key Features**:
-1. Decentralized development and deployment.
-2. Each service has its own database.
-3. Services can be built using different technology stacks.
-
-#### **Real-World Example**:
-- **Netflix**: Independent microservices handle user recommendations, video playback, and billing.
-
-#### **Advantages**:
-1. High scalability and fault isolation.
-2. Independent deployment of services.
-3. Teams can work on different services simultaneously.
-
-#### **Challenges**:
-1. Complex orchestration and monitoring.
-2. Increased inter-service communication adds latency.
-
-#### **Mastery Techniques**:
-1. Build a sample e-commerce application with services like `Cart`, `Orders`, and `Payments`.
-2. Use tools like **Kubernetes** for orchestration and **Jaeger** for tracing inter-service communication.
-
 ---
 
 ### **2. Layered (N-Tier) Architecture**
@@ -91,33 +62,6 @@ Let’s dive deep into the **Essential Software Architecture Patterns**, analyzi
 2. Use **Apache Kafka** or **AWS SNS/SQS** to handle event communication.
 
 ---
-
-### **4. Monolithic Architecture**
-
-#### **Overview**:
-- A **single unified codebase** for all application components (e.g., UI, logic, database).
-
-#### **Best For**:
-- Smaller applications with low complexity.
-
-#### **Key Features**:
-1. Centralized codebase and database.
-2. Single deployment package.
-
-#### **Real-World Example**:
-- **WordPress**: A monolithic system that combines themes, plugins, and core functionality.
-
-#### **Advantages**:
-1. Simpler to develop and deploy initially.
-2. Centralized logging and debugging.
-
-#### **Challenges**:
-1. Scaling requires scaling the entire application.
-2. Difficult to adopt new technologies.
-
-#### **Mastery Techniques**:
-1. Build a basic CMS with user authentication, content management, and database integration.
-2. Experiment with scaling techniques like vertical scaling.
 
 ---
 

@@ -959,24 +959,6 @@ Microservices are a software development technique that structures applications 
 
 ---
 
-## Question 20
-**How do microservices differ from monolithic architecture?**  
-Monolithic architecture builds applications as a single unit, while microservices break them into smaller, independent services communicating over APIs.
-
-```python
-# Example: Microservices
-# Service 1: Handles user login
-# Service 2: Manages product catalog
-# Both can be deployed, scaled, and maintained independently.
-```
-
----
-
-This continues the same style. Let me know if you'd like additional questions or further refinements!
-
-
-
-Certainly! Below is a comprehensive summary with an **Index Page** for easy navigation, including definitions, code implementations, expanded scenarios, conclusions, and comparisons related to **pass by value** and **pass by reference** in Python.
 
 ---
 

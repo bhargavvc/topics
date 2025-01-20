@@ -2,8 +2,6 @@
 What are microservices?
   Microservices are a software development technique—a variant of the service-oriented architecture (SOA)—where applications are structured as a collection of loosely coupled services.
 
-How do microservices differ from monolithic architecture? 
-  In monolithic architecture, an application is built as a single unified unit, while microservices break it into smaller, independent services that communicate over well-defined APIs.
 
 What are the advantages of using microservices? 
   They offer scalability, flexibility in using different technologies, easier maintenance, and faster deployment times.
@@ -50,11 +48,7 @@ What is a circuit breaker pattern?
   It’s a design pattern used to detect failures and encapsulate the logic of preventing a failure from constantly recurring, improving system resilience.
     This pattern helps prevent a network or service failure from
 
-   
-What are microservices, and how do they differ from monolithic architecture?
-  Microservices are small, independent services that work together. They allow different parts of an application to be developed, deployed, and scaled independently. This contrasts with monolithic architecture, where everything is built as a single, unified unit.
-  
- 
+
 What challenges come with microservices?
   Challenges include managing distributed systems, ensuring data consistency, and handling communication between services.
  

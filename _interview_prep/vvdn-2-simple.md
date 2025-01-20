@@ -310,9 +310,7 @@ Below are **100 short Q&A** that cover a range of **beginner-to-advanced** topic
 
 81. **Q**: Explain CAP Theorem in distributed systems.  
     **A**: It states that a distributed system can only guarantee two of Consistency, Availability, and Partition tolerance at once.
-
-82. **Q**: Difference between Monolithic and Microservices architecture?  
-    **A**: Monolithic means one large codebase. Microservices break functionality into small, independently deployed services.
+ 
 
 83. **Q**: What is an event-driven architecture?  
     **A**: An approach in which services communicate by emitting/consuming events via messaging systems (like Kafka).
