@@ -349,8 +349,6 @@ Below are **100 short Q&A** that cover a range of **beginner-to-advanced** topic
 93. **Q**: If your service consumes messages from Kafka and is behind, how to fix it?  
     **A**: Scale consumers horizontally, optimize message processing logic, or partition data more effectively.
 
-94. **Q**: How do you implement rate limiting in FastAPI?  
-    **A**: Use external solutions like an API Gateway or libraries (`slowapi`) that track requests per user/IP and throttle when limits are hit.
 
 95. **Q**: You need to store large blobs (files, images). SQL or NoSQL?  
     **A**: Typically store large binaries in object storage (S3, GCS) or specialized NoSQL like MongoDB GridFS. Traditional SQL might not be ideal.

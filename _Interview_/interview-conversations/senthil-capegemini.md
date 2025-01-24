@@ -1,19 +1,37 @@
 
 
-### **Stage 1: Opening and General Questions**
-
- 
-
 
 #### **5. What is rate limiting, and how do you implement it?**  
 - **Answer:**  
-  - **Rate Limiting:** A mechanism to restrict the number of requests that can be made to an API in a given timeframe to prevent abuse or overload.
+  - **Rate Limiting:** A technique to restrict the number of requests that can be made to an API in a given timeframe to prevent abuse or overload.
   - **Implementation:**  
     - Configure thresholds for requests per user/IP in the API gateway.
     - Use a function in middleware to monitor request counts.
     - For example, allow 100 requests per minute per user. Excess requests receive a 429 (Too Many Requests) response.
+ 
 
----
+  - **Flask with Flask-Limiter**:
+  ```python
+  from flask import Flask
+  from flask_limiter import Limiter
+  from flask_limiter.util import get_remote_address
+
+  app = Flask(__name__)
+  limiter = Limiter(
+      app,
+      key_func=get_remote_address,
+      default_limits=["100 per 15 minutes"]
+  )
+
+  @app.route('/')
+  @limiter.limit("10 per minute")
+  def index():
+      return "Hello, World!"
+
+  if __name__ == '__main__':
+      app.run(port=5000)
+  ```
+
 
 #### **6. What is the diamond problem in inheritance?**  
 - **Answer:**  
@@ -23,17 +41,6 @@
 ---
 
 ### **Stage 2: Technical Concepts**
-
----
-
-#### **7. What are the HTTP methods supported in REST APIs?**  
-- **Answer:**  
-  REST APIs support these common methods:
-  - **GET:** Retrieve data.
-  - **POST:** Create new data.
-  - **PUT:** Update or replace existing data.
-  - **PATCH:** Update partial data.
-  - **DELETE:** Remove data.
 
 ---
 
@@ -75,18 +82,12 @@
     - Lightweight, specifically built for RESTful APIs.
     - Automatic generation of OpenAPI documentation.
     - Faster than Django and Flask for API-heavy use cases.
-  - **Use Case:** In one project, I used FastAPI for creating a high-performance microservice to handle third-party integrations.
 
 ---
-
-### **Next Stages:** More answers, including **Database, OOPs, CI/CD, Problem Solving, and Behavioral Questions**, will follow in subsequent responses. Let me know if you'd like adjustments or priority on specific questions!
-
-
 
 ### **Stage 3: Database Concepts**
 
----
-
+ 
 #### **11. How do you design a one-to-many or many-to-many relationship in databases?**
 - **Answer:**
   - **One-to-Many:**
@@ -576,9 +577,6 @@ Let me know if you'd like to go even deeper into any of the above answers or add
 
 ---
 
-#### **31. What is your notice period and last working day?**
-- **Answer:**
-  - My notice period is 30 days. My last working day is January 31.
 
 ---
 
@@ -591,15 +589,6 @@ Let me know if you'd like to go even deeper into any of the above answers or add
 
 ---
 
-#### **33. What is your experience with Linux environments?**
-- **Answer:**
-  - I use Linux for development and server management tasks, including:
-    - Transferring files with `scp` and `rsync`.
-    - Managing PostgreSQL databases from the terminal.
-    - Using Docker containers for development and deployment.
-    - Writing shell scripts for automation.
-
----
 
 #### **34. How would you design a cricket scoring application?**
 - **Answer:**
@@ -610,26 +599,40 @@ Let me know if you'd like to go even deeper into any of the above answers or add
   - **Example Code:**
     ```python
     class Cricketer:
-        def __init__(self, name, role):
-            self.name = name
-            self.role = role
-            self.score = 0
+      def __init__(self, name, role):
+          self.name = name
+          self.role = role
+          self.score = 0
 
-        def update_score(self, runs):
-            self.score += runs
+      def update_score(self, runs):
+          self.score += runs
 
-    class Batsman(Cricketer):
+
+    class BatsMan(Cricketer):
         def __init__(self, name):
-            super().__init__(name, "Batsman")
+            super().__init__(name, "BatsMan")
+
 
     class Bowler(Cricketer):
         def __init__(self, name):
             super().__init__(name, "Bowler")
 
-    # Example usage
-    player = Batsman("Virat Kohli")
-    player.update_score(100)
-    print(player.score)  # Output: 100
+
+    class AllRounder(BatsMan, Bowler):
+        def __init__(self, name):
+            super().__init__(name)
+            self.role = "AllRounder"  # Override the role to specify "AllRounder"
+
+
+    # Test the classes
+    batsman = BatsMan("Bhargav")
+    batsman.update_score(100)
+    print(f"Batsman {batsman.name} Score: {batsman.score}")
+
+    allrounder = AllRounder("Ravindra Jadeja")
+    allrounder.update_score(50)
+    print(f"AllRounder {allrounder.name} Score: {allrounder.score}")
+
     ```
 
 ---

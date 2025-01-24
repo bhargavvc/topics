@@ -1372,54 +1372,6 @@ Use DynamoDB to store request counts and timestamps for each user.
 
 
 
-Example Code Snippet (Rate Limiting Logic):
-
-import json
-import boto3
-from datetime import datetime, timedelta
-
-dynamodb = boto3.resource('dynamodb')
-table = dynamodb.Table('RateLimit')
-
-def lambda_handler(event, context):
-    user_id = event['requestContext']['identity']['sourceIp']
-    current_time = datetime.now()
-    time_window = current_time - timedelta(minutes=1)
-
-    # Update request count
-    response = table.get_item(Key={'user_id': user_id})
-    if 'Item' in response:
-        item = response['Item']
-        request_count = item['request_count']
-        last_request_time = item['last_request_time']
-
-        if last_request_time < time_window.isoformat():
-            # Reset count if outside time window
-            request_count = 1
-        else:
-            request_count += 1
-
-        if request_count > 100:  # Limit to 100 requests per minute
-            return {
-                'statusCode': 429,
-                'body': 'Rate limit exceeded'
-            }
-    else:
-        request_count = 1
-
-    # Update DynamoDB
-    table.put_item(Item={
-        'user_id': user_id,
-        'request_count': request_count,
-        'last_request_time': current_time.isoformat()
-    })
-
-    return {
-        'statusCode': 200,
-        'body': json.dumps('Request successful')
-    }
-
-
 
 Scenario 12: Handling File Uploads to S3
 Question:You need to implement a feature that allows users to upload files to an S3 bucket. How would you design this feature using AWS services?

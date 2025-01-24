@@ -119,40 +119,6 @@ LEFT JOIN employees b ON a.manager_id = b.id;
 
 ---
 
-#### **9. How would you approach building an AI-focused feature for a contact center?**  
-- **Answer:**  
-  - **Components:**
-    - AI agents for handling domain-specific queries.
-    - NLP models to understand and process user input.
-    - Integration with existing CRM systems to fetch and update customer data.
-  - **Implementation:**
-    - Use pre-trained models (e.g., GPT or BERT) for conversational AI.
-    - Continuously train models with domain-specific data to improve accuracy.
 
----
-
-### **Stage 4: Behavioral and Miscellaneous**
-
----
-
-#### **10. How do you approach learning new technologies like AI?**  
-- **Answer:**  
-  - Start with the fundamentals, such as machine learning pipelines and basic NLP concepts.
-  - Experiment with pre-trained models and open-source frameworks.
-  - Work on small, real-world projects to solidify understanding.
-
----
-
-#### **11. What motivates you to focus on AI as part of your career growth?**  
-- **Answer:**  
-  - The rapid adoption of AI in various industries and its potential to replace traditional roles motivates me to upskill. AI proficiency will help me remain competitive and contribute to building innovative solutions.
-
----
-
-#### **12. How do you handle feedback during interviews?**  
-- **Answer:**  
-  - I view feedback as an opportunity for growth. I take notes, analyze areas of improvement, and work on refining my skills and approach to better align with expectations.
-
----
 
 Let me know if you’d like to expand on any specific sections or add more detailed problem-solving examples!
