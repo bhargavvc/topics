@@ -1,20 +1,33 @@
 
 # two sum problem 
-
 def two_sum(nums, target):
     # Dictionary to store visited numbers and their indices
-    num_to_index = {}
+    '''
+    [2, 7, 11, 15]
+    seen = {}
+    we need to find complimment for each number so that u can find pairs
+    here in first case 2' complement to 9 is 7 
+    here in first case 7' complement to 9 is 2 
+
+    first we are storing complemnt of each number 
+    - dictionary with key as number and index as value
+    - so next time if any of complement found for other numebrs it ieasily gives index of pair
+   
+    '''
     
-    for i, num in enumerate(nums):
+
+    seen = {}
+    
+    for index, number in enumerate(nums):
         # Calculate the complement
-        complement = target - num
+        complement = target - number
         
-        # Check if complement is already in the dictionary
-        if complement in num_to_index:
-            return [num_to_index[complement], i]
+        # Check if complement is already in the seen 
+        if complement in seen:
+            return [seen[complement], index]
         
         # Store the current number and its index in the dictionary
-        num_to_index[num] = i
+        seen[number] = index
 
     return []  # Return empty if no solution exists
 
@@ -26,7 +39,6 @@ print(f"Indices of numbers that sum to {target}: {result}")
 
 #Manual Power Calculation with Float Support
 import math
-
 def power(base, exponent):
     # Handle edge case for base 0
     if base == 0 and exponent <= 0:
@@ -202,10 +214,6 @@ def longest(value):
 
 str_value = "abcabcdba"
 print( longest(str_value))
-
-
-
-
 
 
 
