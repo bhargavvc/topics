@@ -11,8 +11,6 @@
 # str = Abcabcdba
 
 def longest(value):
-    
-
     char_index = {}
     start= 0
     max_length = 0
